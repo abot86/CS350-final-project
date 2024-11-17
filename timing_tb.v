@@ -1,6 +1,9 @@
 `timescale 1ns / 1ps
 
-module timing_tb;
+module timing_tb(
+    input CLK50MHZ;
+    
+);
     reg clock, reset;
 
     Wrapper cpu(.clock(clock), .reset(reset));
