@@ -8,8 +8,9 @@ module alu(data_operandA, data_operandB, ctrl_ALUopcode, ctrl_shiftamt, data_res
     
     wire OVF;
     wire [31:0] notB, inB;
-
     wire [31:0] and_result, or_result, sll_result, sra_result, addsub_result;
+
+    wire OVF;
 
     mux_32 OPMUX(data_result, ctrl_ALUopcode, addsub_result, addsub_result, and_result, or_result, sll_result, sra_result, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0, 32'b0);
 
