@@ -1,5 +1,5 @@
 module adc_interface(
-    input CLK100MHZ;
+    input CLK100MHZ,
     input reset,          // Reset signal
     input eoc,            // End-of-conversion signal from ADC0808
     input [7:0] data_in,  // Digital output from ADC0808
@@ -65,6 +65,3 @@ CTRL SIGNALS:
 https://www.ti.com/lit/ds/symlink/adc0808-n.pdf?ts=1731677092610&ref_url=https%253A%252F%252Fwww.google.com%252F
 
 */
-
-
-endmodule
