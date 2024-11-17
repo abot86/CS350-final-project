@@ -1,8 +1,8 @@
 module adc_top_level (
     input wire CLK100MHZ,      // FPGA clock
     input wire reset,          // Reset signal
-    input wire eoc,            // End-of-conversion signal from ADC0808
-    input wire [7:0] data_in,  // Digital output from ADC0808
+    input wire eoc,
+    input wire [11:0] JB            // End-of-conversion signal from ADC0808
     output wire ale,           // Address latch enable for ADC0808
     output wire start,         // Start conversion signal for ADC0808
     output wire oe,            // Output enable signal for ADC0808
@@ -10,6 +10,8 @@ module adc_top_level (
     output wire [6:0] seg,     // 7-segment display segments
     output wire [3:0] an       // 7-segment display digit select
 );
+    wire [7:0] data_in,  // Digital output from ADC0808
+    assign data_in = {JB[10:7], JB[4:1]};
 
     // Internal signals
     wire [7:0] adc_value;          // Captured ADC output
