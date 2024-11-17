@@ -1,5 +1,5 @@
 module adc_interface(
-    input CLK100MHZ,
+    input clk,
     input reset,          // Reset signal
     input eoc,            // End-of-conversion signal from ADC0808
     input [7:0] data_in,  // Digital output from ADC0808
@@ -40,7 +40,7 @@ module adc_interface(
                     end
                 end
                 READ_DATA: begin
-                    data_out <= adc_data;
+                    data_out <= data_in;
                     data_ready <= 1;
                     oe <= 0;
                     state <= IDLE;

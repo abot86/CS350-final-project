@@ -20,7 +20,7 @@ module adc_top_level (
 
     // Instantiate the ADC interface
     adc_interface adc_intf (
-        .CLK100MHZ(CLK100MHZ),
+        .clk(CLK100MHZ),
         .reset(reset),
         .eoc(eoc),
         .data_in(data_in),
