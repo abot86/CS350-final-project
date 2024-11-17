@@ -24,7 +24,7 @@
  *
  **/
 
-module Wrapper (
+module Wrapper_timing (
     input clk_100mhz,
     input BTNU, 
     input [15:0] SW,

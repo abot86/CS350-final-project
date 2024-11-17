@@ -4,9 +4,13 @@
 ## - rename the used ports (in each line, after get_ports) according to the top level signal names in the project
 
 ## Clock signal
-set_property -dict {PACKAGE_PIN E3 IOSTANDARD LVCMOS33} [get_ports clk_100mhz]
-create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk_100mhz]
-#create_clock -period 20.000 -name sys_clk_pin -waveform {0.000 10.000} -add [get_ports clk_50mhz]
+set_property -dict {PACKAGE_PIN E3 IOSTANDARD LVCMOS33} [get_ports clk_25mhz];
+#create_clock -period 10.000 -name sys_clk_pin -waveform {0.000 5.000} -add [get_ports clk_100mhz];
+#create_clock -period 20.000 -name sys_clk_pin -waveform {0.000 10.000} -add [get_ports clk_50mhz];
+#create_clock -period 40.000 -name sys_clk_pin -waveform {0.000 10.000} -add [get_ports clk_25mhz];
+create_clock -period 30.000 -name sys_clk_pin -waveform {0.000 10.000} -add [get_ports clk_33mhz];
+
+
 
 
 
