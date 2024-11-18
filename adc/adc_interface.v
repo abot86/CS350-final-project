@@ -9,6 +9,8 @@ module adc_interface(
     output reg [2:0] addr,// Address lines to select analog input channel
     output reg [7:0] data_out // Digital data captured from ADC
 );
+    //address always 0
+    assign addr = 3'd0;
 
     reg [2:0] state;
 
