@@ -15,16 +15,17 @@ module adc_top_level (
     wire [2:0] addr;
 
     assign data_in = {JA[10:7], JA[4:1]};
-    assign eoc = JA[3];       //
-    assign ale =  JA[1];       // Address latch enable for ADC0808 
-    assign start = JA[4];      // Start conversion signal for ADC0808
-    assign oe =  JA[2];      // Output enable signal for ADC0808
+    assign eoc = JB[3];       //
+    assign ale =  JB[1];       // Address latch enable for ADC0808 
+    assign start = JB[4];      // Start conversion signal for ADC0808
+    assign oe =  JB[2];      // Output enable signal for ADC0808
     assign addr = 3'd0;       // Address lines to select analog input channel
     assign JA[7] = clock50kHz;
     assign reset = BTNC;
 
     // testing
-    always LED = data_in;
+    always LED[3:0] = {start, eoc, oe, ale};
+    always LED[7:4] = 4'd0;
 
 
     // Internal signals
