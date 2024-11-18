@@ -18,9 +18,14 @@ module adc_top_level (
     wire data_ready;               // Signal indicating ADC data is ready
     wire [3:0] hundreds, tens, ones; // BCD outputs
 
+    // Clocking
+    wire clock50kHz;
+    clock_100M_50k clock_delta(.clk_in(CLK100MHZ), .reset(reset), .clk_out(clock50kHz));
+
+
     // Instantiate the ADC interface
     adc_interface adc_intf (
-        .clk(CLK100MHZ),
+        .clk(clock50kHz),
         .reset(reset),
         .eoc(eoc),
         .data_in(data_in),
