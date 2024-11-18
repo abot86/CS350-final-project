@@ -4,8 +4,8 @@ module adc_top_level (
     inout wire [11:0] JA,            // \ NOT NECESSARILY INPUT, NEED TO CHANGE
     inout wire [11:0] JB,            // / 
 
-    output wire [6:0] seg,     // 7-segment display segments
-    output wire [3:0] an       // 7-segment display digit select
+    output reg CA,CB,CC,CD,CE,CF,CG,
+    output AN;
 );
     // wire instantiation
     wire [7:0] data_in;                     // Digital output from ADC0808
@@ -29,6 +29,17 @@ module adc_top_level (
     wire clock50kHz;
     clock_100M_50k clock_delta(.clk_in(CLK100MHZ), .reset(reset), .clk_out(clock50kHz));
 
+    // 7 seg display
+    always AN[6:4] = 1;
+
+    reg [6:0] seg;
+    assign CA = seg[0];
+    assign CB = seg[1];
+    assign CC = seg[2];
+    assign CD = seg[3];
+    assign CE = seg[4];
+    assign CF = seg[5];
+    assign CG = seg[6];
 
     // Instantiate the ADC interface
     adc_interface adc_intf (
@@ -60,7 +71,7 @@ module adc_top_level (
         .digit2(hundreds),  // Most significant digit
         .digit3(4'b0000),   // Unused digit (can be set to zero)
         .seg(seg),
-        .an(an)
+        .an(AN[3:0])
     );
 
 endmodule
