@@ -37,9 +37,11 @@ module seven_segment_multiplexer (
             end
         endcase
     end
-
+    
+    wire [6:0] seg_wire;
     seven_segment_decoder decoder (
         .digit(current_digit),
-        .seg(seg)
+        .seg(seg_wire)
     );
+    always seg[6:0] = seg_wire[6:0];
 endmodule

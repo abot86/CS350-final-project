@@ -6,11 +6,9 @@ module adc_interface(
     output reg ale,       // Address latch enable for ADC0808
     output reg start,     // Start conversion signal for ADC0808
     output reg oe,        // Output enable signal for ADC0808
-    output reg [2:0] addr,// Address lines to select analog input channel
     output reg [7:0] data_out // Digital data captured from ADC
 );
     //address always 0
-    assign addr = 3'd0;
 
     reg [2:0] state;
 
@@ -22,7 +20,6 @@ module adc_interface(
             ale <= 0;
             start <= 0;
             oe <= 0;
-            data_ready <= 0;
         end else begin
             case (state)
                 IDLE: begin
@@ -43,7 +40,6 @@ module adc_interface(
                 end
                 READ_DATA: begin
                     data_out <= data_in;
-                    data_ready <= 1;
                     oe <= 0;
                     state <= IDLE;
                 end
