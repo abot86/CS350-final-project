@@ -1,12 +1,14 @@
 module adc_top_level (
     input wire CLK100MHZ,      // FPGA clock
     input wire BTNC,          // Reset signal
-    inout wire [11:0] JA,            // \ NOT NECESSARILY INPUT, NEED TO CHANGE
+    inout wire [11:0] JA,            // \ NOT NECESSARILY INOUT, NEED TO CHANGE
     inout wire [11:0] JB,            // / 
 
     output reg CA,CB,CC,CD,CE,CF,CG,
-    output reg [6:0] AN
+    output reg [6:0] AN,
+    output reg [7:0] LED
 );
+
     // wire instantiation
     wire [7:0] data_in;                     // Digital output from ADC0808
     wire ale, start, oe, reset;
@@ -20,6 +22,10 @@ module adc_top_level (
     assign addr = 3'd0;       // Address lines to select analog input channel
     assign JA[7] = clock50kHz;
     assign reset = BTNC;
+
+    // testing
+    always LED = data_in;
+
 
     // Internal signals
     wire [7:0] adc_value;          // Captured ADC output
