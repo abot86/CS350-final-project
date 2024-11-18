@@ -40,7 +40,6 @@ module adc_interface(
                 end
                 READ_DATA: begin
                     data_out <= data_in;
-                    oe <= 0;
                     state <= IDLE;
                 end
             endcase
