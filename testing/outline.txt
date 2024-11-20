@@ -1,0 +1,16 @@
+- average calculation algorithm
+    - write python      [DONE]
+    - python -> c       [DONE]
+    - c -> mips
+
+- slope of average (d[avg]/dt) calculation
+    - write python
+    - python -> c
+    - c -> mips
+
+- integration with ADC
+    - ADC to register (and print)
+        - change architecture
+        - write code to test
+    - ADC to register to memory
+
