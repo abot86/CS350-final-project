@@ -1,0 +1,6 @@
+To do:
+1. write verilog file that calls PWMSerializer 
+    1a. (note - only change the parameters)
+    1b. see lab 8 - talk to maanav to get files (from lab computer desktop)
+2. write module to test PWMSerializer 
+3. use level converter to get 5V signal (MG996R uses 5V)
