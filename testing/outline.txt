@@ -1,6 +1,6 @@
 - average calculation algorithm
-    - write python      [DONE]
-    - python -> c       [DONE]
+    - write python
+    - python -> c       
     - c -> mips
 
 - slope of average (d[avg]/dt) calculation
