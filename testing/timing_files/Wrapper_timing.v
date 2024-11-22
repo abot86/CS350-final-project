@@ -25,12 +25,12 @@
  **/
 
 module Wrapper_timing (
-    input clk_100mhz,
+    input clk_25mhz,
     input BTNU, 
     input [15:0] SW,
     output reg [15:0] LED);
     wire clock, reset;
-    assign clock = clk_100mhz;
+    assign clock = clk_25mhz;
     assign reset = BTNU; 
 	wire rwe, mwe;
 	wire[4:0] rd, rs1, rs2;
@@ -57,7 +57,7 @@ module Wrapper_timing (
        end
     assign q_dmem = (io_read == 1'b1) ? SW_Q : memDataOut;
 	// ADD YOUR MEMORY FILE HERE
-	localparam INSTR_FILE = "timing";
+	localparam INSTR_FILE = "C:/Users/ab973/Desktop/Ayush_Ishan_final/CS350-final-project/testing/timing_files/timing";
 	
 	// Main Processing Unit
 	processor CPU(.clock(clock), .reset(reset), 
