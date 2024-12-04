@@ -11,7 +11,7 @@ module ServoDriver(
     
     assign clk = clk25mhz;
     
-    // PLL Clocking - REDO PLL LATER, NOT PUSHED TO GIT
+    // // PLL Clocking - REDO PLL LATER, NOT PUSHED TO GIT
     clk_wiz_0 PLL(
         .clk_out1(clk25mhz),
         .reset(BTNC),
