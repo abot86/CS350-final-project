@@ -1,4 +1,11 @@
-module regfile (clock, ctrl_writeEnable, ctrl_reset, ctrl_writeReg, ctrl_readRegA, ctrl_readRegB, data_writeReg,data_readRegA, data_readRegB);
+// INPUT JA FROM CONSTRAINTS
+
+module regfile (
+	clock, 
+	ctrl_writeEnable, ctrl_reset, 
+	ctrl_writeReg, ctrl_readRegA, ctrl_readRegB,
+	input [7:0] JA, //JA == ADC
+	data_writeReg,data_readRegA, data_readRegB);
 
 	input clock, ctrl_writeEnable, ctrl_reset;
 	input [4:0] ctrl_writeReg, ctrl_readRegA, ctrl_readRegB;
@@ -17,8 +24,16 @@ module regfile (clock, ctrl_writeEnable, ctrl_reset, ctrl_writeReg, ctrl_readReg
 
 
 	// register: (out, in, clk, en, clr)
+
+	//r0: 0
 	register ZERO(qReg0, 32'b0, clock, 1'b0, 1'b0);
-	register REGISTER1(qReg1, data_writeReg, clock, write_slct[1], ctrl_reset);
+
+	//r1: ADC
+	wire [32:0] adc;
+	assign adc = {{24{1'b0}},JA}
+	register REGISTER1(qReg1, adc, clock, 1'b1, ctrl_reset);
+
+	
 	register REGISTER2(qReg2, data_writeReg, clock, write_slct[2], ctrl_reset);
 	register REGISTER3(qReg3, data_writeReg, clock, write_slct[3], ctrl_reset);
 	register REGISTER4(qReg4, data_writeReg, clock, write_slct[4], ctrl_reset);

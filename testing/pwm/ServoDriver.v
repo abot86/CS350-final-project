@@ -1,22 +1,16 @@
 module ServoDriver(
-    input CLK100MHZ,              // 100 MHz system clock
+    input clk25mhz,              // 100 MHz system clock
     input BTNC,            // Reset signal
-    input BTNU,
+    input [9:0] duty_cycle_input,
     output servoSignal     // PWM signal for the servo
     );
 
-    wire clk25mhz;
     wire clk;
     wire locked;
     
     assign clk = clk25mhz;
     
-    // // PLL Clocking - REDO PLL LATER, NOT PUSHED TO GIT
-    clk_wiz_0 PLL(
-        .clk_out1(clk25mhz),
-        .reset(BTNC),
-        .locked(locked),
-        .clk_in1(CLK100MHZ));
+
 
     reg [9:0] duty_cycle; // Duty cycle input (0-1023, scaled to 0-100%)
     always @(posedge clk) begin
