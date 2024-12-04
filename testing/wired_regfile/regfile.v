@@ -16,7 +16,7 @@ module regfile (clock, ctrl_writeEnable, ctrl_reset, ctrl_writeReg, ctrl_readReg
 	//and(en1, ctrl_writeEnable, write_slct[1]);
 
 
-
+	// register: (out, in, clk, en, clr)
 	register ZERO(qReg0, 32'b0, clock, 1'b0, 1'b0);
 	register REGISTER1(qReg1, data_writeReg, clock, write_slct[1], ctrl_reset);
 	register REGISTER2(qReg2, data_writeReg, clock, write_slct[2], ctrl_reset);
