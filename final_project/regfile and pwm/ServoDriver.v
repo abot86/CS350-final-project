@@ -11,7 +11,6 @@ module ServoDriver(
     assign clk = clk25mhz;
     
 
-
     reg [9:0] duty_cycle; // Duty cycle input (0-1023, scaled to 0-100%)
     // Instantiate the PWMSerializer
     PWMSerializer #(
