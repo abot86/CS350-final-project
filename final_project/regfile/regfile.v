@@ -4,17 +4,19 @@ module regfile (
 	clock, 
 	ctrl_writeEnable, ctrl_reset, 
 	ctrl_writeReg, ctrl_readRegA, ctrl_readRegB,
-	input [7:0] JA, //JA == ADC
+	JA, //JA == ADC
 	data_writeReg,data_readRegA, data_readRegB, 
-	input PWMout, input rest, input active, 
-	output reg [15:0] testing);
+	PWMout, rest, active, 
+	testing);
 
-
+    input PWMout; input rest; input active;
+    input [7:0] JA;
 	input clock, ctrl_writeEnable, ctrl_reset;
 	input [4:0] ctrl_writeReg, ctrl_readRegA, ctrl_readRegB;
 	input [31:0] data_writeReg;
 	
 	output [31:0] data_readRegA, data_readRegB;
+	output reg [15:0] testing;
 
 
 	wire [31:0] qReg0, qReg1, qReg2, qReg3, qReg4, qReg5, qReg6, qReg7, qReg8, qReg9, qReg10, qReg11, qReg12, qReg13, qReg14, qReg15, qReg16, qReg17, qReg18, qReg19, qReg20, qReg21, qReg22, qReg23, qReg24, qReg25, qReg26, qReg27, qReg28, qReg29, qReg30, qReg31;
@@ -31,7 +33,7 @@ module regfile (
 
 	//r1: ADC
 	wire [32:0] adc;
-	assign adc = {{24{1'b0}},JA}
+	assign adc = {{24{1'b0}},JA};
 	register REGISTER1(qReg1, adc, clock, 1'b1, ctrl_reset);
 
 	//r2: PWM duty-cycle output
