@@ -48,7 +48,13 @@ module regfile (
 
 	// normal
 	register REGISTER7(qReg7, data_writeReg, clock, write_slct[7], ctrl_reset);
-	register REGISTER8(qReg8, data_writeReg, clock, write_slct[8], ctrl_reset);
+
+	// adc ready
+	reg adc_ready;
+	counter5k1 adc_rdy(clock, adc_ready);
+	register REGISTER8(qReg8, {{31{1'b0}},adc_ready}, clock, 1'b1, ctrl_reset);
+
+	// normal
 	register REGISTER9(qReg9, data_writeReg, clock, write_slct[9], ctrl_reset);
 	register REGISTER10(qReg10, data_writeReg, clock, write_slct[10], ctrl_reset);
 	register REGISTER11(qReg11, data_writeReg, clock, write_slct[11], ctrl_reset);
