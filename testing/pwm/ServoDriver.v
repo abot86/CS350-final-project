@@ -1,5 +1,5 @@
 module ServoDriver(
-    input clk,              // 100 MHz system clock
+    input clk25mhz,              // 100 MHz system clock
     input BTNC,            // Reset signal
     input [9:0] duty_cycle_input,
     output servoSignal     // PWM signal for the servo
