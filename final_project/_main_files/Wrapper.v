@@ -24,7 +24,7 @@
  *
  **/
 
-module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk LED);
+module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 	input CLK100MHZ, BTNC;
 	input [7:0] JA;
 	input BTNL, BTNR;
