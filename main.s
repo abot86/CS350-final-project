@@ -99,6 +99,7 @@ Main_loop:
 #    PLAN FOR TESTING
 # register 24 is (or will be depending on how late I stay up)...
 #    hard-wired to LEDs on the FPGA. replace any register with $r24 to see its value mid run.
+# NOTE: $r24 is only hard-wired in main branch. please merge changes before doing stuff.
 # BTNC is the reset button (always). If BTNC does not reset then life sucks.
 #
 #####
