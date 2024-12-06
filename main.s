@@ -5,8 +5,8 @@
 # r8 = ADC ready
 
 #HARDWIRED OUTPUTS
-# r2 = PWM duty cycle
 # r24 = LED testing
+# r2 = PWM_out
 
 #TEMPS
 # r3 = minimum (rest)
@@ -15,8 +15,11 @@
 # r10 = sum
 # r11 = toAdd
 # r12 = average (sum/sample size)
+# r13 = prev_average
 # r16 = (x-rest)
 # r17 = (active - x)
+# r25 = prev_PWM
+# r26 = curr_PWM
 
 # CONSTANTS
 # r18 = OFFSET
@@ -27,8 +30,8 @@
 # Define constants
 addi $r18, $r0, 94
 addi $r19, $r0, 2500
-addi $r20, $r0, 102
-addi $r21, $r0, 21
+addi $r20, $r0, 1
+addi $r21, $r0, 0
 
 # Calibrate rest (minimum)
 add $r9, $r0, $r19                 # count = 2500
@@ -89,7 +92,7 @@ Main_loop:
     Data_collect:
         addi $r9, $r9, -1               # count = count - 1
         addi $r11, $r0, 0               # set toAdd to 0
-        blt $r9, $r0, Set_pwm           # while (count > 0)
+        blt $r9, $r0, Set_pwm_curr           # while (count > 0)
         Wait_ADC:
             bne $r8, $r0, Calc          # while ADC not ready
             j Wait_ADC
@@ -102,21 +105,28 @@ Main_loop:
         add $r10, $r10, $r11            # sum = sum + toAdd
         j Data_collect
     
-    Set_pwm:
+    Set_pwm_curr:
         div $r12, $r10, $r19      # r12 := measured average over 3 periods
         sub $r16, $r12, $r3             # $r16 = x - rest
         sub $r17, $r4, $r12             # $r17 = active - x
         blt $r17, $r16, Set_pwm_HIGH    # if (x-rest > active-x)
 
         Set_pwm_LOW:
-            add $r2, $r0, $r21      # set PWM register to low (0*)
+            addi $r26, $r0, 0      # set PWM register to low (0*)
             j Main_loop
 
         Set_pwm_HIGH:
-            add $r2, $r0, $r20     # set PWM register to high (0*)
+            addi $r26, $r0, 1    # set PWM register to high (0*)
             j Main_loop
     
+    blt
+
+    End:
+        add $r25, $r0, $r26
+
     j Main_loop
+
+# Create new register to store previous, move current into previous at end of each loop
 
 #####
 #    PLAN FOR TESTING
