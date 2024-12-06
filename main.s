@@ -57,7 +57,7 @@ Min_set:
 
 
 # Calibrate active (maximum)
-addi $r9, $r0, $r19                 # count = 2500
+add $r9, $r0, $r19                 # count = 2500
 Wait_btnr:
     bne $r6, $r0, Max_cal
     j Wait_btnr
@@ -84,7 +84,7 @@ Max_set:
 
 # Main loop
 Main_loop:
-    addi $r9, $r0, $r19           # count = 2500
+    add $r9, $r0, $r19           # count = 2500
 
     Data_collect:
         addi $r9, $r9, -1               # count = count - 1
@@ -109,11 +109,11 @@ Main_loop:
         blt $r17, $r16, Set_pwm_HIGH    # if (x-rest > active-x)
 
         Set_pwm_LOW:
-            addi $r2, $r0, $r21      # set PWM register to low (0*)
+            add $r2, $r0, $r21      # set PWM register to low (0*)
             j Main_loop
 
         Set_pwm_HIGH:
-            addi $r2, $r0, $r20     # set PWM register to high (0*)
+            add $r2, $r0, $r20     # set PWM register to high (0*)
             j Main_loop
     
     j Main_loop
