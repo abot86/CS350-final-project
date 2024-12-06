@@ -3,15 +3,23 @@ module counter5k1(
     output reg pulse5khz
 );
 
-    // counter only stays on for 1 cycle - should i have it stay on for longer? 
+    // counter  stays on for 5 cycle 
     reg[12:0] counter = 0;
+    reg[2:0] inner_counter = 0; // inner counter to count to 5 
+
     always @(posedge clk25mhz) begin
         if (counter < CounterLimit) begin
             counter <= counter + 1;
-            pulse5khz <= 0;
+            if (inner_counter > 0) begin
+                pulse5khz <= 1;
+                inner_counter <= inner_counter + 1;
+                if (inner_counter >= 5) inner_counter <= 0;
+            end
+            else pulse5khz <= 0;
         end
         else begin
             pulse5khz <= 1;
+            inner_counter <= 1;
             counter <=0;
         end
     end
