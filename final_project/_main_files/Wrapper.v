@@ -24,12 +24,12 @@
  *
  **/
 
-module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, LED);
+module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk LED);
 	input CLK100MHZ, BTNC;
 	input [7:0] JA;
 	input BTNL, BTNR;
 
-	output JB;
+	output JB, JB_clk;
 	output reg [15:0] LED;
 
 	wire clock, clk25mhz;
