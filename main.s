@@ -18,14 +18,17 @@
 # r16 = (x-rest)
 # r17 = (active - x)
 
+# CONSTANTS
+# r18 = OFFSET
+# r19 = ADC_SAMPLE
+# r20 = PWM_HIGH
+# r21 = PWM_LOW
 
-.data
-OFFSET: .word 94
-ADC_SAMPLE: .word 2500
-PWM_HIGH: .word 102
-PWM_LOW: .word 21
-
-.text
+# Define constants
+addi $r18, $r0, 94
+addi $r19, $r0, 2500
+addi $r20, $r0, 102
+addi $r21, $r0, 21
 
 # Calibrate rest (minimum)
 addi $r9, $r0, ADC_SAMPLE                 # count = 2500
