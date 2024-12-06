@@ -53,7 +53,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 
 
 	// ADD YOUR MEMORY FILE HERE
-	localparam INSTR_FILE = "";
+	localparam INSTR_FILE = "C:/Users/ab973/Desktop/CS350-final-project/main";
 	
 	// Main Processing Unit
 	processor CPU(.clock(clock), .reset(reset), 

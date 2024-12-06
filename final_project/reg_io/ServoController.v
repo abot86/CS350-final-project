@@ -15,7 +15,7 @@ module ServoController(clk25mhz, reset, set_high_low, servoSignal);
     // prev state stored from main.s file
 
 
-    always @(posedge clock) begin
+    always @(posedge clk25mhz) begin
         if (set_high_low == 1) begin
             duty_cycle_input_reg <= 51;     // duty cycle = 5
             #500000000;                     // wait 0.5s
