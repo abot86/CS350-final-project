@@ -38,7 +38,7 @@ module regfile (
 
 	//r2: PWM duty-cycle output
 	register REGISTER2(qReg2, data_writeReg, clock, write_slct[2], ctrl_reset);
-	ServoDriver PWM_out(.clk(clock), .reset(reset), .duty_cycle_input(qReg2[9:0]), .servoSignal(PWMout));
+	ServoDriver PWM_out(.clk25mhz(clock), .reset(reset), .duty_cycle_input(qReg2[9:0]), .servoSignal(PWMout));
 
 	// normal
 	register REGISTER3(qReg3, data_writeReg, clock, write_slct[3], ctrl_reset);
@@ -52,7 +52,7 @@ module regfile (
 	register REGISTER7(qReg7, data_writeReg, clock, write_slct[7], ctrl_reset);
 
 	// adc ready
-	reg adc_ready;
+	wire adc_ready;
 	counter5k1 adc_rdy(clock, adc_ready);
 	register REGISTER8(qReg8, {{31{1'b0}},adc_ready}, clock, 1'b1, ctrl_reset);
 

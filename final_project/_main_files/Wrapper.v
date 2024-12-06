@@ -27,6 +27,7 @@
 module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, LED);
 	input CLK100MHZ, BTNC;
 	input [7:0] JA;
+	input BTNL, BTNR;
 
 	output JB;
 	output reg [15:0] LED;
@@ -75,6 +76,9 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, LED);
 		.addr(instAddr[11:0]), 
 		.dataOut(instData));
 	
+	wire [15:0] led_input;
+	assign led_input = LED;
+	
 	// Register File
 	regfile RegisterFile(.clock(clock), 
 		.ctrl_writeEnable(rwe), .ctrl_reset(reset), 
@@ -82,7 +86,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, LED);
 		.ctrl_readRegA(rs1), .ctrl_readRegB(rs2),
 		.JA(JA), 
 		.data_writeReg(rData), .data_readRegA(regA), .data_readRegB(regB),
-		.PWMout(JB), .rest(BTNL), .active(BTNR), .testing(LED));
+		.PWMout(JB), .rest(BTNL), .active(BTNR), .testing(led_input));
 						
 	// Processor Memory (RAM)
 	RAM ProcMem(.clk(clock), 
