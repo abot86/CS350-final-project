@@ -24,14 +24,10 @@
 # CONSTANTS
 # r18 = OFFSET
 # r19 = ADC_SAMPLE
-# r20 = PWM_HIGH
-# r21 = PWM_LOW
 
 # Define constants
 addi $r18, $r0, 94
 addi $r19, $r0, 2500
-addi $r20, $r0, 1
-addi $r21, $r0, 0
 
 # Calibrate rest (minimum)
 add $r9, $r0, $r19                 # count = 2500
@@ -99,31 +95,47 @@ Main_loop:
         Calc:
             blt $r1, $r18, Abs        # if ($r1 > OFFSET)
             sub $r11, $r1, $r18       # toAdd = $r1 - OFFSET
+            j End_data_collect
         Abs:
             sub $r11, $r18, $r1       # toAdd = OFFSET - $r1
-
-        add $r10, $r10, $r11            # sum = sum + toAdd
-        j Data_collect
+        End_data_collect:
+            add $r10, $r10, $r11            # sum = sum + toAdd
+            j Data_collect
     
     Set_pwm_curr:
         div $r12, $r10, $r19      # r12 := measured average over 3 periods
         sub $r16, $r12, $r3             # $r16 = x - rest
         sub $r17, $r4, $r12             # $r17 = active - x
-        blt $r17, $r16, Set_pwm_HIGH    # if (x-rest > active-x)
 
-        Set_pwm_LOW:
-            addi $r26, $r0, 0      # set PWM register to low (0*)
-            j Main_loop
+        blt $r17, $r16, Set_curr_HIGH    # if (x-rest > active-x)
 
-        Set_pwm_HIGH:
-            addi $r26, $r0, 1    # set PWM register to high (0*)
-            j Main_loop
+        Set_curr_LOW:
+            addi $r26, $r0, 0       # set PWM register to low (0*)
+            j final_PWM_steps
+
+        Set_curr_HIGH:
+            addi $r26, $r0, 1       # set PWM register to high (0*)
+
+    final_PWM_steps:
+        sub $r20, $r26, $r25        # prev - curr (each is either 0 or 1)
+        bne $r20, $r0, send_pwm_pulse # if prev =/= curr, send a pulse
+        j End
     
-    blt
+    send_pwm_pulse:                 # pulse either 1 or 2 based on active or rest
+        bne $r26, $r0, active
+        rest: 
+            addi $r2, $r0, 2
+            nop
+            addi $r2, $r0, 0
+            j End
+        active:
+            addi $r2, $r0, 1
+            nop
+            addi $r2, $r0, 0
 
     End:
         add $r25, $r0, $r26
-
+        addi $r2, $r0, 0
     j Main_loop
 
 # Create new register to store previous, move current into previous at end of each loop
