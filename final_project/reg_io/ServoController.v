@@ -12,6 +12,9 @@ module ServoController(clk25mhz, reset, set_high_low, servoSignal);
     assign duty_cycle_input = duty_cycle_input_reg;
 
     reg set_high_low_delayed;
+    // prev state stored from main.s file
+
+
     always @(posedge clock) begin
         if (set_high_low == 1 && set_high_low_delayed == 0) begin
             duty_cycle_input_reg <= 51;     // duty cycle = 5
@@ -21,6 +24,9 @@ module ServoController(clk25mhz, reset, set_high_low, servoSignal);
         if (set_high_low == 0 && set_high_low_delayed == 1) begin
             duty_cycle_input_reg <= 92;     // duty cycle = 9
             #10;                            // wait
+            duty_cycle_input_reg <= 77;     // duty cycle = 7.5
+        end
+        else begin
             duty_cycle_input_reg <= 77;     // duty cycle = 7.5
         end
     end
