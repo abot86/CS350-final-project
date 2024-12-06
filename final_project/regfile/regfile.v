@@ -6,7 +6,9 @@ module regfile (
 	ctrl_writeReg, ctrl_readRegA, ctrl_readRegB,
 	input [7:0] JA, //JA == ADC
 	data_writeReg,data_readRegA, data_readRegB, 
-	input PWMout, input rest, input active);
+	input PWMout, input rest, input active, 
+	output reg [15:0] testing);
+
 
 	input clock, ctrl_writeEnable, ctrl_reset;
 	input [4:0] ctrl_writeReg, ctrl_readRegA, ctrl_readRegB;
@@ -41,8 +43,8 @@ module regfile (
 	register REGISTER4(qReg4, data_writeReg, clock, write_slct[4], ctrl_reset);
 
 	// rest and active
-	register rest_register5(qReg5, {{31{1'b0}},BTNL}, clock, 1'b1, ctrl_reset);
-	register active_register6(qReg6, {{31{1'b0}},BTNR}, clock, 1'b1, ctrl_reset);
+	register rest_register5(qReg5, {{31{1'b0}},rest}, clock, 1'b1, ctrl_reset);
+	register active_register6(qReg6, {{31{1'b0}},active}, clock, 1'b1, ctrl_reset);
 
 	// normal
 	register REGISTER7(qReg7, data_writeReg, clock, write_slct[7], ctrl_reset);
@@ -62,7 +64,14 @@ module regfile (
 	register REGISTER21(qReg21, data_writeReg, clock, write_slct[21], ctrl_reset);
 	register REGISTER22(qReg22, data_writeReg, clock, write_slct[22], ctrl_reset);
 	register REGISTER23(qReg23, data_writeReg, clock, write_slct[23], ctrl_reset);
+
+	// to LEDs
 	register REGISTER24(qReg24, data_writeReg, clock, write_slct[24], ctrl_reset);
+	always @(posedge clock) begin
+		testing <= qReg24[15:0];
+	end
+
+	// normal
 	register REGISTER25(qReg25, data_writeReg, clock, write_slct[25], ctrl_reset);
 	register REGISTER26(qReg26, data_writeReg, clock, write_slct[26], ctrl_reset);
 	register REGISTER27(qReg27, data_writeReg, clock, write_slct[27], ctrl_reset);

@@ -24,10 +24,12 @@
  *
  **/
 
-module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB);
+module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, LED);
 	input CLK100MHZ, BTNC;
 	input [7:0] JA;
+
 	output JB;
+	output reg [15:0] LED;
 
 	wire clock, clk25mhz;
 
@@ -80,7 +82,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB);
 		.ctrl_readRegA(rs1), .ctrl_readRegB(rs2),
 		.JA(JA), 
 		.data_writeReg(rData), .data_readRegA(regA), .data_readRegB(regB),
-		.PWMout(JB), .rest(BTNL), .active(BTNR));
+		.PWMout(JB), .rest(BTNL), .active(BTNR), .testing(LED));
 						
 	// Processor Memory (RAM)
 	RAM ProcMem(.clk(clock), 
