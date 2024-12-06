@@ -22,5 +22,5 @@ module ServoDriver(
         .duty_cycle(duty_cycle),      // Pass in duty cycle
         .signal(servoSignal)         // Connect to output PWM signal
     );
-    
+     
 endmodule

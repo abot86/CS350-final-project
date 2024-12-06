@@ -5,15 +5,14 @@ module regfile (
 	ctrl_writeEnable, ctrl_reset, 
 	ctrl_writeReg, ctrl_readRegA, ctrl_readRegB,
 	input [7:0] JA, //JA == ADC
-	data_writeReg,data_readRegA, data_readRegB, PWMout);
+	data_writeReg,data_readRegA, data_readRegB, 
+	input PWMout, input rest, input active);
 
 	input clock, ctrl_writeEnable, ctrl_reset;
 	input [4:0] ctrl_writeReg, ctrl_readRegA, ctrl_readRegB;
 	input [31:0] data_writeReg;
-
+	
 	output [31:0] data_readRegA, data_readRegB;
-
-
 
 
 	wire [31:0] qReg0, qReg1, qReg2, qReg3, qReg4, qReg5, qReg6, qReg7, qReg8, qReg9, qReg10, qReg11, qReg12, qReg13, qReg14, qReg15, qReg16, qReg17, qReg18, qReg19, qReg20, qReg21, qReg22, qReg23, qReg24, qReg25, qReg26, qReg27, qReg28, qReg29, qReg30, qReg31;
@@ -37,11 +36,15 @@ module regfile (
 	register REGISTER2(qReg2, data_writeReg, clock, write_slct[2], ctrl_reset);
 	ServoDriver PWM_out(.clk(clock), .reset(reset), .duty_cycle_input(qReg2[9:0]), .servoSignal(PWMout));
 
-	// rest of registers
+	// normal
 	register REGISTER3(qReg3, data_writeReg, clock, write_slct[3], ctrl_reset);
 	register REGISTER4(qReg4, data_writeReg, clock, write_slct[4], ctrl_reset);
-	register REGISTER5(qReg5, data_writeReg, clock, write_slct[5], ctrl_reset);
-	register REGISTER6(qReg6, data_writeReg, clock, write_slct[6], ctrl_reset);
+
+	// rest and active
+	register rest_register5(qReg5, {{31{1'b0}},BTNL}, clock, 1'b1, ctrl_reset);
+	register active_register6(qReg6, {{31{1'b0}},BTNR}, clock, 1'b1, ctrl_reset);
+
+	// normal
 	register REGISTER7(qReg7, data_writeReg, clock, write_slct[7], ctrl_reset);
 	register REGISTER8(qReg8, data_writeReg, clock, write_slct[8], ctrl_reset);
 	register REGISTER9(qReg9, data_writeReg, clock, write_slct[9], ctrl_reset);
