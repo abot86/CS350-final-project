@@ -1,3 +1,24 @@
+#HARDWIRED INPUTS
+# r1 = ADC out
+# r5 = BTNL rest
+# r6 = BTNR active
+# r8 = ADC ready
+
+#HARDWIRED OUTPUTS
+# r2 = PWM duty cycle
+# r24 = LED testing
+
+#TEMPS
+# r3 = minimum (rest)
+# r4 = maximum (active)
+# r9 = count (sampling)
+# r10 = sum
+# r11 = toAdd
+# r12 = average (sum/sample size)
+# r16 = (x-rest)
+# r17 = (active - x)
+
+
 .data
 OFFSET: .word 94
 ADC_SAMPLE: .word 2500
