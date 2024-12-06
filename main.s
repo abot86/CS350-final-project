@@ -88,18 +88,18 @@ Main_loop:
     Data_collect:
         addi $r9, $r9, -1               # count = count - 1
         addi $r11, $r0, 0               # set toAdd to 0
-        blt $r9, $r0, Set_pwm_curr           # while (count > 0)
+        blt $r9, $r0, Set_pwm_curr      # while (count > 0)
         Wait_ADC:
             bne $r8, $r0, Calc          # while ADC not ready
             j Wait_ADC
         Calc:
-            blt $r1, $r18, Abs        # if ($r1 > OFFSET)
-            sub $r11, $r1, $r18       # toAdd = $r1 - OFFSET
+            blt $r1, $r18, Abs          # if ($r1 > OFFSET)
+            sub $r11, $r1, $r18         # toAdd = $r1 - OFFSET
             j End_data_collect
         Abs:
-            sub $r11, $r18, $r1       # toAdd = OFFSET - $r1
+            sub $r11, $r18, $r1         # toAdd = OFFSET - $r1
         End_data_collect:
-            add $r10, $r10, $r11            # sum = sum + toAdd
+            add $r10, $r10, $r11        # sum = sum + toAdd
             j Data_collect
     
     Set_pwm_curr:
