@@ -18,12 +18,12 @@ module ServoController(clk25mhz, reset, set_high_low, servoSignal);
     always @(posedge clock) begin
         if (set_high_low == 1) begin
             duty_cycle_input_reg <= 51;     // duty cycle = 5
-            #10;                            // wait
+            #500000000;                     // wait 0.5s
             duty_cycle_input_reg <= 77;     // duty cycle = 7.5
         end
         if (set_high_low == 2) begin
             duty_cycle_input_reg <= 92;     // duty cycle = 9
-            #10;                            // wait
+            #500000000;                     // wait 0.5s
             duty_cycle_input_reg <= 77;     // duty cycle = 7.5
         end
         else begin
