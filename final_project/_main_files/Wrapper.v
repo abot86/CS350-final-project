@@ -30,7 +30,9 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 	input BTNL, BTNR;
 
 	output JB, JB_clk;
-	output reg [15:0] LED;
+	output [15:0] LED;
+	
+	assign LED[7:0] = JA;
 
 	wire clock, clk25mhz;
 
@@ -38,12 +40,21 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 	assign reset = BTNC;
 
 // PLL -> Need to actually do in vivado (should BTNC be reset?)
-	assign clock = clk25mhz;
-    clk_wiz_0 PLL(
-        .clk_out1(clk25mhz),
-        .reset(BTNC),
-        .locked(locked),
-        .clk_in1(CLK100MHZ));
+
+    reg[3:0] counter;
+    
+    always @(posedge CLK100MHZ) begin
+        counter <= counter + 1;
+    end
+    
+    assign clk25mhz = counter[1];
+
+//	assign clock = clk25mhz;
+//    clk_wiz_0 PLL(
+//        .clk_out1(clk25mhz),
+//        .reset(reset),
+//        .locked(locked),
+//        .clk_in1(CLK100MHZ));
 
 	wire rwe, mwe;
 	wire[4:0] rd, rs1, rs2;
@@ -52,8 +63,9 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 		memAddr, memDataIn, memDataOut;
 
 
-	// ADD YOUR MEMORY FILE HERE
-	localparam INSTR_FILE = "C:/Users/ab973/Desktop/CS350-final-project/main";
+	// ADD YOUR MEMORY FILE HERE - COMMENTED OUT
+//	localparam INSTR_FILE = "C:/Users/ab973/Desktop/CS350-final-project/main";
+	
 	
 	// Main Processing Unit
 	processor CPU(.clock(clock), .reset(reset), 
@@ -71,22 +83,26 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 		.data(memDataIn), .q_dmem(memDataOut)); 
 	
 	// Instruction Memory (ROM)
-	ROM #(.MEMFILE({INSTR_FILE, ".mem"}))
-	InstMem(.clk(clock), 
-		.addr(instAddr[11:0]), 
-		.dataOut(instData));
+//	ROM #(.MEMFILE({INSTR_FILE, ".mem"}))
+//	InstMem(.clk(clock), 
+//		.addr(instAddr[11:0]), 
+//		.dataOut(instData));
 	
-	wire [15:0] led_input;
-	assign led_input = LED;
 	
-	// Register File
-	regfile RegisterFile(.clock(clock), 
-		.ctrl_writeEnable(rwe), .ctrl_reset(reset), 
-		.ctrl_writeReg(rd),
-		.ctrl_readRegA(rs1), .ctrl_readRegB(rs2),
-		.JA(JA), 
-		.data_writeReg(rData), .data_readRegA(regA), .data_readRegB(regB),
-		.PWMout(JB), .rest(BTNL), .active(BTNR), .testing(led_input));
+	//REGFILE COMMENTED OUT
+//	wire [15:0] led_input;
+//    always @(posedge clk25mhz) begin
+//        LED <= led_input;
+//    end
+    	
+//	// Register File
+//	regfile RegisterFile(.clock(clock), 
+//		.ctrl_writeEnable(rwe), .ctrl_reset(reset), 
+//		.ctrl_writeReg(rd),
+//		.ctrl_readRegA(rs1), .ctrl_readRegB(rs2),
+//		.JA(JA), 
+//		.data_writeReg(rData), .data_readRegA(regA), .data_readRegB(regB),
+//		.PWMout(JB), .rest(BTNL), .active(BTNR), .testing(led_input));
 						
 	// Processor Memory (RAM)
 	RAM ProcMem(.clk(clock), 
@@ -96,6 +112,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 		.dataOut(memDataOut));
 
 	// JB_clk
-	clock_25M_50k JB_clock_module(clk25mhz, reset, JB_clk);
+//	clock_25M_50k JB_clock_module(clk25mhz, reset, JB_clk);
+    assign JB_clk = 1'b0;
 
 endmodule

@@ -9,14 +9,14 @@ module regfile (
 	PWMout, rest, active, 
 	testing);
 
-    input PWMout; input rest; input active;
+    output PWMout; input rest; input active;
     input [7:0] JA;
 	input clock, ctrl_writeEnable, ctrl_reset;
 	input [4:0] ctrl_writeReg, ctrl_readRegA, ctrl_readRegB;
 	input [31:0] data_writeReg;
 	
 	output [31:0] data_readRegA, data_readRegB;
-	output reg [15:0] testing;
+	output [15:0] testing;
 
 
 	wire [31:0] qReg0, qReg1, qReg2, qReg3, qReg4, qReg5, qReg6, qReg7, qReg8, qReg9, qReg10, qReg11, qReg12, qReg13, qReg14, qReg15, qReg16, qReg17, qReg18, qReg19, qReg20, qReg21, qReg22, qReg23, qReg24, qReg25, qReg26, qReg27, qReg28, qReg29, qReg30, qReg31;
@@ -32,13 +32,15 @@ module regfile (
 	register ZERO(qReg0, 32'b0, clock, 1'b0, 1'b0);
 
 	//r1: ADC
-	wire [32:0] adc;
+	wire [31:0] adc;
 	assign adc = {{24{1'b0}},JA};
 	register REGISTER1(qReg1, adc, clock, 1'b1, ctrl_reset);
+//	register REGISTER1(qReg1, data_writeReg, clock, write_slct[1], ctrl_reset);
 
 	//r2: PWM duty-cycle output
 	register REGISTER2(qReg2, data_writeReg, clock, write_slct[2], ctrl_reset);
 	ServoController PWM_ctrl(.clk25mhz(clock), .reset(reset), .set_high_low(qReg2[0]), .servoSignal(PWMout));
+//    assign PWMout = 1'b0;
 
 	// normal
 	register REGISTER3(qReg3, data_writeReg, clock, write_slct[3], ctrl_reset);
@@ -73,11 +75,12 @@ module regfile (
 	register REGISTER22(qReg22, data_writeReg, clock, write_slct[22], ctrl_reset);
 	register REGISTER23(qReg23, data_writeReg, clock, write_slct[23], ctrl_reset);
 
-	// to LEDs
 	register REGISTER24(qReg24, data_writeReg, clock, write_slct[24], ctrl_reset);
-	always @(posedge clock) begin
-		testing <= qReg24[15:0];
-	end
+
+	// LEDs testing: testing ADC rn
+//	always @(posedge clock) begin
+//		testing <= qReg1[15:0];
+//	end
 
 	// normal
 	register REGISTER25(qReg25, data_writeReg, clock, write_slct[25], ctrl_reset);
