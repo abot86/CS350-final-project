@@ -1,11 +1,11 @@
-module clock_25M_50k (
+module clock_25M_500k (
     input clk_in,     // 25 MHz input clock
     input reset,      // Asynchronous reset signal
     output reg clk_out // 50 kHz output clock
 );
 
     // Divide factor: 500 (25 MHz / 50 kHz)
-    localparam DIV_FACTOR = 500;
+    localparam DIV_FACTOR = 50;
 
     reg [9:0] counter; // Counter to divide the clock
 

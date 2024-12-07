@@ -112,7 +112,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 		.dataOut(memDataOut));
 
 	// JB_clk
-//	clock_25M_50k JB_clock_module(clk25mhz, reset, JB_clk);
-    assign JB_clk = 1'b0;
+	clock_25M_500k JB_clock_module(clk25mhz, reset, JB_clk);
+//    assign JB_clk = 1'b0;
 
 endmodule
