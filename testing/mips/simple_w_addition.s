@@ -5,6 +5,8 @@
 # TEST 2: 0, 0, 3. Res: 1
 # TEST 3: R, R, R. Res: R
 
+# PASSES ALL 3
+
 Wait_btnl1:
     bne $r5, $r0, Min_cal       # BTNL 1
     j Wait_btnl1
