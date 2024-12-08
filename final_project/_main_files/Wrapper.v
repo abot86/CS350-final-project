@@ -32,7 +32,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 	output JB, JB_clk;
 	output [15:0] LED;
 	
-	assign LED[7:0] = JA;
+
 
 	wire clock, clk25mhz;
     
@@ -86,21 +86,18 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 //		.addr(instAddr[11:0]), 
 //		.dataOut(instData));
 	
-	
-	//REGFILE COMMENTED OUT
-//	wire [15:0] led_input;
-//    always @(posedge clk25mhz) begin
-//        LED <= led_input;
-//    end
-    	
-//	// Register File
-//	regfile RegisterFile(.clock(clock), 
-//		.ctrl_writeEnable(rwe), .ctrl_reset(reset), 
-//		.ctrl_writeReg(rd),
-//		.ctrl_readRegA(rs1), .ctrl_readRegB(rs2),
-//		.JA(JA), 
-//		.data_writeReg(rData), .data_readRegA(regA), .data_readRegB(regB),
-//		.PWMout(JB), .rest(BTNL), .active(BTNR), .testing(led_input));
+
+    wire [15:0] led_regs;	
+	// Register File
+	regfile RegisterFile(.clock(clock), 
+		.ctrl_writeEnable(rwe), .ctrl_reset(reset), 
+		.ctrl_writeReg(rd),
+		.ctrl_readRegA(rs1), .ctrl_readRegB(rs2),
+		.JA(JA), 
+		.data_writeReg(rData), .data_readRegA(regA), .data_readRegB(regB),
+		.PWMout(JB), .rest(BTNL), .active(BTNR), .testing(led_regs));
+
+	assign LED[7:0] = led_regs[7:0];
 						
 	// Processor Memory (RAM)
 	RAM ProcMem(.clk(clock), 

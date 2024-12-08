@@ -37,18 +37,18 @@ module regfile (
 	register REGISTER1(qReg1, adc, clock, 1'b1, ctrl_reset);
 //	register REGISTER1(qReg1, data_writeReg, clock, write_slct[1], ctrl_reset);
 
-	//r2: PWM duty-cycle output
-	register REGISTER2(qReg2, data_writeReg, clock, write_slct[2], ctrl_reset);
-	ServoController PWM_ctrl(.clk25mhz(clock), .reset(reset), .set_high_low(qReg2[0]), .servoSignal(PWMout));
-//    assign PWMout = 1'b0;
+//	//r2: PWM duty-cycle output
+//	register REGISTER2(qReg2, data_writeReg, clock, write_slct[2], ctrl_reset);
+//	ServoController PWM_ctrl(.clk25mhz(clock), .reset(reset), .set_high_low(qReg2[0]), .servoSignal(PWMout));
+////    assign PWMout = 1'b0;
 
 	// normal
 	register REGISTER3(qReg3, data_writeReg, clock, write_slct[3], ctrl_reset);
 	register REGISTER4(qReg4, data_writeReg, clock, write_slct[4], ctrl_reset);
 
-	// rest and active
-	register rest_register5(qReg5, {{31{1'b0}},rest}, clock, 1'b1, ctrl_reset);
-	register active_register6(qReg6, {{31{1'b0}},active}, clock, 1'b1, ctrl_reset);
+//	// rest and active
+//	register rest_register5(qReg5, {{31{1'b0}},rest}, clock, 1'b1, ctrl_reset);
+//	register active_register6(qReg6, {{31{1'b0}},active}, clock, 1'b1, ctrl_reset);
 
 	// normal
 	register REGISTER7(qReg7, data_writeReg, clock, write_slct[7], ctrl_reset);
@@ -78,9 +78,9 @@ module regfile (
 	register REGISTER24(qReg24, data_writeReg, clock, write_slct[24], ctrl_reset);
 
 	// LEDs testing: testing ADC rn
-//	always @(posedge clock) begin
-//		testing <= qReg1[15:0];
-//	end
+	always @(posedge clock) begin
+		testing <= qReg1[15:0];
+	end
 
 	// normal
 	register REGISTER25(qReg25, data_writeReg, clock, write_slct[25], ctrl_reset);
