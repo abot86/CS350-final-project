@@ -62,7 +62,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 
 
 	// ADD YOUR MEMORY FILE HERE - COMMENTED OUT
-	localparam INSTR_FILE = "C:/Users/isv4/Documents/GitHub/CS350-final-project/testing/mips/save_btn";
+	localparam INSTR_FILE = "C:/Users/isv4/Documents/GitHub/CS350-final-project/testing/mips/super_simple";
 	
 	
 	// Main Processing Unit
