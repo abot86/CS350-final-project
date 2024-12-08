@@ -62,7 +62,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 
 
 	// ADD YOUR MEMORY FILE HERE - COMMENTED OUT
-	localparam INSTR_FILE = "C:/Users/isv4/Documents/GitHub/CS350-final-project/testing/mips/simple";
+	localparam INSTR_FILE = "C:/Users/isv4/Documents/GitHub/CS350-final-project/testing/mips/simple_w_addition";
 	
 	
 	// Main Processing Unit
@@ -107,6 +107,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 
 	// JB_clk
 	clock_25M_500k JB_clock_module(clk25mhz, reset, JB_clk);
-//    assign JB_clk = 1'b0;
+//    assign JB_clk = 1'b0; 
+
 
 endmodule

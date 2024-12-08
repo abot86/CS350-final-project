@@ -48,7 +48,7 @@ module regfile (
 	register REGISTER4(qReg4, data_writeReg, clock, write_slct[4], ctrl_reset);
 
     // testing // ------------------
-    assign testing = qReg4[15:0];
+    assign testing = qReg3[15:0];
 
 	// rest and active
 	register rest_register5(qReg5, {{31{1'b0}},rest}, clock, 1'b1, ctrl_reset);

@@ -13,7 +13,7 @@ Min_cal:
     addi $r21, $r1, 0
 
 Wait_btnl2:
-    bne $r5, $r0, Min_cal2       # BTNL 2
+    bne $r6, $r0, Min_cal2       # BTNR 2
     j Wait_btnl2
 
 Min_cal2:
@@ -27,6 +27,7 @@ Min_cal3:
     add $r21, $r21, $r1         # BTNL 3
 Final:
     addi $r22, $r0, 3
-    div $r3, $r21, $r22
+    add $r3, $r21, $r0          #<- memory adjusted for this instead of below
+    #div $r3, $r21, $r22
 
 ## CONNECT LEDs TO $R3
