@@ -85,7 +85,6 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 //	InstMem(.clk(clk25mhz), 
 //		.addr(instAddr[11:0]), 
 //		.dataOut(instData));
-	
 
     wire [15:0] led_regs;	
 	// Register File
