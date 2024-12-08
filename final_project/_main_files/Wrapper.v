@@ -35,7 +35,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 	assign LED[7:0] = JA;
 
 	wire clock, clk25mhz;
-
+    
 	wire reset;
 	assign reset = BTNC;
 
