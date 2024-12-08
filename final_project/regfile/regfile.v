@@ -47,13 +47,12 @@ module regfile (
 	register REGISTER3(qReg3, data_writeReg, clock, write_slct[3], ctrl_reset);
 	register REGISTER4(qReg4, data_writeReg, clock, write_slct[4], ctrl_reset);
 
+    // testing // ------------------
+    assign testing = qReg3[15:0];
+
 	// rest and active
 	register rest_register5(qReg5, {{31{1'b0}},rest}, clock, 1'b1, ctrl_reset);
 	register active_register6(qReg6, {{31{1'b0}},active}, clock, 1'b1, ctrl_reset);
-
-    // LEDs testing: testing ADC rn
-    assign testing[0] = qReg5[0];
-    assign testing[1] = qReg6[0];
 
 	// normal
 	register REGISTER7(qReg7, data_writeReg, clock, write_slct[7], ctrl_reset);

@@ -195,15 +195,21 @@ module processor(
 
     // positive edge-triggered pulse generator 
     wire ctrl_MULT, ctrl_DIV, is_mult_delayed, is_div_delayed;
-    dffe_ref ctrl_MULT_delayed(.q(is_mult_delayed), .d(is_mult), .clk(not_clock), .en(1'b1), .clr(reset));
-    assign ctrl_MULT = (!is_mult_delayed && is_mult) || mult_RDY_neg_edge;
+    assign ctrl_MULT = 0;
+/*  SCUFFED COMMENTING BUT PERHAPS IT FIXES TIMING LOOP - confimed not the solution 2*/    
+/*    dffe_ref ctrl_MULT_delayed(.q(is_mult_delayed), .d(is_mult), .clk(not_clock), .en(1'b1), .clr(reset));
+    assign ctrl_MULT = (!is_mult_delayed && is_mult); // || mult_RDY_neg_edge;
+*/    
     dffe_ref ctrl_DIV_delayed(.q(is_div_delayed), .d(is_div), .clk(not_clock), .en(1'b1), .clr(reset));
-    assign ctrl_DIV = (!is_div_delayed && is_div) || div_RDY_neg_edge;
-    // account for case of successive M/D
-    wire mult_RDY_neg_edge, div_RDY_neg_edge, multdiv_RDY_delayed;
-    dffe_ref ctrl_MD_neg_edge(.q(multdiv_RDY_delayed), .d(multdiv_RDY), .clk(not_clock), .en(1'b1), .clr(reset));
-    assign mult_RDY_neg_edge = (!multdiv_RDY) && (multdiv_RDY_delayed) && is_mult;
-    assign div_RDY_neg_edge = (!multdiv_RDY) && (multdiv_RDY_delayed) && is_div;
+    assign ctrl_DIV = (!is_div_delayed && is_div); // || div_RDY_neg_edge;
+
+    
+/*  SCUFFED COMMENTING BUT PERHAPS IT FIXES TIMING LOOP - confimed not the solution 1*/
+//    // account for case of successive M/D
+//    wire mult_RDY_neg_edge, div_RDY_neg_edge, multdiv_RDY_delayed;
+//    dffe_ref ctrl_MD_neg_edge(.q(multdiv_RDY_delayed), .d(multdiv_RDY), .clk(not_clock), .en(1'b1), .clr(reset));
+//    assign mult_RDY_neg_edge = (!multdiv_RDY) && (multdiv_RDY_delayed) && is_mult;
+//    assign div_RDY_neg_edge = (!multdiv_RDY) && (multdiv_RDY_delayed) && is_div;
 
     multdiv multdiv_module(
         .data_operandA(execute_true_A), .data_operandB(execute_true_B), 
