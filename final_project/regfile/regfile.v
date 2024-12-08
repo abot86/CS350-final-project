@@ -78,9 +78,7 @@ module regfile (
 	register REGISTER24(qReg24, data_writeReg, clock, write_slct[24], ctrl_reset);
 
 	// LEDs testing: testing ADC rn
-	always @(posedge clock) begin
-		testing <= qReg1[15:0];
-	end
+    assign testing = qReg1[15:0];
 
 	// normal
 	register REGISTER25(qReg25, data_writeReg, clock, write_slct[25], ctrl_reset);
