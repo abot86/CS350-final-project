@@ -55,7 +55,7 @@ module regfile (
 
 	// adc ready
 	wire adc_ready;
-	counter5k1 adc_rdy(clock, adc_ready);
+	counter500to1 adc_rdy(clock, adc_ready);
 	register REGISTER8(qReg8, {{31{1'b0}},adc_ready}, clock, 1'b1, ctrl_reset);
 
 	// normal

@@ -39,14 +39,12 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 	wire reset;
 	assign reset = BTNC;
 
-// PLL -> Need to actually do in vivado (should BTNC be reset?)
 
+	// clock - NOT PLL
     reg[3:0] counter;
-    
     always @(posedge CLK100MHZ) begin
         counter <= counter + 1;
     end
-    
     assign clk25mhz = counter[1];
 
 //	assign clock = clk25mhz;
