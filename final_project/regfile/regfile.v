@@ -37,7 +37,7 @@ module regfile (
 	assign adc = {{24{1'b0}},JA};
 	register REGISTER1(qReg1, adc, clock, 1'b1, ctrl_reset);
 //	register REGISTER1(qReg1, data_writeReg, clock, write_slct[1], ctrl_reset);
-
+ 
 //	//r2: PWM duty-cycle output
 //	register REGISTER2(qReg2, data_writeReg, clock, write_slct[2], ctrl_reset);
 //	ServoController PWM_ctrl(.clk25mhz(clock), .reset(reset), .set_high_low(qReg2[0]), .servoSignal(PWMout));

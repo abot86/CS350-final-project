@@ -96,7 +96,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 		.data_writeReg(rData), .data_readRegA(regA), .data_readRegB(regB),
 		.PWMout(JB), .rest(BTNL), .active(BTNR), .testing(led_regs));
 
-	assign LED[7:0] = led_regs[7:0];
+	assign LED[15:0] = led_regs[15:0];
 						
 	// Processor Memory (RAM)
 	RAM ProcMem(.clk(clk25mhz), 
