@@ -31,6 +31,7 @@ module regfile (
 	//r0: 0
 	register ZERO(qReg0, 32'b0, clock, 1'b0, 1'b0);
 
+	
 	//r1: ADC
 	wire [31:0] adc;
 	assign adc = {{24{1'b0}},JA};
@@ -46,9 +47,13 @@ module regfile (
 	register REGISTER3(qReg3, data_writeReg, clock, write_slct[3], ctrl_reset);
 	register REGISTER4(qReg4, data_writeReg, clock, write_slct[4], ctrl_reset);
 
-//	// rest and active
-//	register rest_register5(qReg5, {{31{1'b0}},rest}, clock, 1'b1, ctrl_reset);
-//	register active_register6(qReg6, {{31{1'b0}},active}, clock, 1'b1, ctrl_reset);
+	// rest and active
+	register rest_register5(qReg5, {{31{1'b0}},rest}, clock, 1'b1, ctrl_reset);
+	register active_register6(qReg6, {{31{1'b0}},active}, clock, 1'b1, ctrl_reset);
+
+    // LEDs testing: testing ADC rn
+    assign testing[0] = qReg5[0];
+    assign testing[1] = qReg6[0];
 
 	// normal
 	register REGISTER7(qReg7, data_writeReg, clock, write_slct[7], ctrl_reset);
@@ -77,8 +82,7 @@ module regfile (
 
 	register REGISTER24(qReg24, data_writeReg, clock, write_slct[24], ctrl_reset);
 
-	// LEDs testing: testing ADC rn
-    assign testing = qReg1[15:0];
+
 
 	// normal
 	register REGISTER25(qReg25, data_writeReg, clock, write_slct[25], ctrl_reset);

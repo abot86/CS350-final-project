@@ -1,11 +1,9 @@
-module counter5k1(
+module counter500to1(
     input clk25mhz,
     output pulse
 );
     
-    // NOT 5000:1
-    // THIS IS 500:1 but NAME IS NOT CHANGED
-    
+  
     // counter  stays on for 5 cycle 
     reg[12:0] counter = 0;
     reg[2:0] inner_counter = 0; // inner counter to count to 5 

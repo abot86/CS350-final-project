@@ -34,7 +34,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 	
 
 
-	wire clock, clk25mhz;
+	wire clk25mhz;
     
 	wire reset;
 	assign reset = BTNC;
@@ -66,7 +66,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 	
 	
 	// Main Processing Unit
-	processor CPU(.clock(clock), .reset(reset), 
+	processor CPU(.clock(clk25mhz), .reset(reset), 
 								
 		// ROM
 		.address_imem(instAddr), .q_imem(instData),
@@ -82,14 +82,14 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 	
 	// Instruction Memory (ROM)
 //	ROM #(.MEMFILE({INSTR_FILE, ".mem"}))
-//	InstMem(.clk(clock), 
+//	InstMem(.clk(clk25mhz), 
 //		.addr(instAddr[11:0]), 
 //		.dataOut(instData));
 	
 
     wire [15:0] led_regs;	
 	// Register File
-	regfile RegisterFile(.clock(clock), 
+	regfile RegisterFile(.clock(clk25mhz), 
 		.ctrl_writeEnable(rwe), .ctrl_reset(reset), 
 		.ctrl_writeReg(rd),
 		.ctrl_readRegA(rs1), .ctrl_readRegB(rs2),
@@ -100,7 +100,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 	assign LED[7:0] = led_regs[7:0];
 						
 	// Processor Memory (RAM)
-	RAM ProcMem(.clk(clock), 
+	RAM ProcMem(.clk(clk25mhz), 
 		.wEn(mwe), 
 		.addr(memAddr[11:0]), 
 		.dataIn(memDataIn), 
