@@ -3,7 +3,7 @@ Wait_btnl:
     j Wait_btnl
 
 Min_cal:
-    addi $r3, $r0, $r1
+    addi $r3, $r1, 0
 # IF LEDs CONNECTED TO R3, SHOULD DISPLAY WHEN BTNL PRESSED
 End:
     nop
