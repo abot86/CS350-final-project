@@ -52,7 +52,7 @@ Min_cal:
     j Min_cal
 
 Min_set:
-    div $r3, $r10, $r19
+    add $r3, $r10, $r0
 
 
 # Calibrate active (maximum)
@@ -78,7 +78,7 @@ Max_cal:
     j Max_cal
 
 Max_set:
-    div $r4, $r10, $r19
+    add $r4, $r10, $r0
 
 
 # Main loop
@@ -103,7 +103,7 @@ Main_loop:
             j Data_collect
     
     Set_pwm_curr:
-        div $r12, $r10, $r19      # r12 := measured average over 3 periods
+        add $r12, $r10, $r0      # r12 := measured average over 3 periods
         sub $r16, $r12, $r3             # $r16 = x - rest
         sub $r17, $r4, $r12             # $r17 = active - x
 
