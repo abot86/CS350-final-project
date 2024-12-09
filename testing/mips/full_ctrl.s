@@ -40,19 +40,20 @@ set_curr_low:
             bne $r25, $r0, case3HL
         case0LL:
             bne $r26, $r0, case2LH
-            addi $r2, $r0, 0
-            j End
-        case1HH:
             addi $r2, $r0, 1
             j End
-        case2LH:
+        case1HH:
             addi $r2, $r0, 2
+            j End
+        case2LH:
+            addi $r2, $r0, 3
             j End
         case3HL:
             bne $r26, $r0, case1HH
-            addi $r2, $r0, 3
+            addi $r2, $r0, 4
             j End
 
 End:
     nop
+    j End
 ## CONNECT LEDs TO $R25
