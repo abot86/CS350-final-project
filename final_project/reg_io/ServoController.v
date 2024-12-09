@@ -26,7 +26,7 @@ module ServoController(clk25mhz, reset, r2case, servoSignal, testing);
             counter <= 0;
         end
         else if (r2case_reg == 0) begin
-            if (counter >= 10000000) begin
+            if (counter >= 80000000) begin
                 duty_cycle_input_reg <= 45;
                 treg <= 1;
             end
@@ -37,7 +37,7 @@ module ServoController(clk25mhz, reset, r2case, servoSignal, testing);
             end
         end
         else if (r2case_reg == 1) begin
-            if (counter >= 10000000) begin
+            if (counter >= 80000000) begin
                 duty_cycle_input_reg <= 45;
                 treg <= 3;
             end
