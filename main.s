@@ -114,24 +114,45 @@ Main_loop:
             j final_PWM_steps
 
         Set_curr_HIGH:
-            addi $r26, $r0, 1       # set PWM register to high (0*)
+            addi $r26, $r0, 1       # set PWM register to high (1*)
 
+
+# TO REDO: (r25=prev and r26=curr)
+# NEW:
     final_PWM_steps:
-        sub $r20, $r26, $r25        # prev - curr (each is either 0 or 1)
-        bne $r20, $r0, send_pwm_pulse # if prev =/= curr, send a pulse
-        j End
-    
-    send_pwm_pulse:                 # pulse either 1 or 2 based on active or rest
-        bne $r26, $r0, active
-        rest: 
-            addi $r2, $r0, 2        # set PWM to negative
-            nop
-            addi $r2, $r0, 0        # reset PWM to rest
+            bne $r25, $r0, case3HL
+        case0LL:
+            bne $r26, $r0, case2LH
+            addi $r2, $r0, 0
             j End
-        active:
-            addi $r2, $r0, 1        # set PWM to positive
-            nop
-            addi $r2, $r0, 0        # reset PWM to rest
+        case1HH:
+            addi $r2, $r0, 1
+            j End
+        case2LH:
+            addi $r2, $r0, 2
+            j End
+        case3HL:
+            bne $r26, $r0, case1HH
+            addi $r2, $r0, 3
+            j End
+# OLD:
+    #     sub $r20, $r26, $r25        # prev - curr (each is either 0 or 1)
+    #     bne $r20, $r0, send_pwm_pulse # if prev =/= curr, send a pulse
+    #     j End
+    
+    # send_pwm_pulse:                 # pulse either 1 or 2 based on active or rest
+    #     bne $r26, $r0, active
+    #     rest: 
+    #         addi $r2, $r0, 2        # set PWM to negative
+    #         nop
+    #         addi $r2, $r0, 0        # reset PWM to rest
+    #         j End
+    #     active:
+    #         addi $r2, $r0, 1        # set PWM to positive
+    #         nop
+    #         addi $r2, $r0, 0        # reset PWM to rest
+
+# END OF REDO
 
     End:
         add $r25, $r0, $r26         # move curr to prev
