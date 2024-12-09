@@ -39,7 +39,7 @@ module PWMSerializer #(
     // The pulse is high when the counter is less than the calculated duty cycle count
     wire lessThan;
     reg delayerBit = 0;
-    assign lessThan = pulseCounter < ((duty_cycle * PERIOD) / 1023);
+    assign lessThan = pulseCounter < ((duty_cycle * PERIOD) >> 10);
     
     // Capture the lessThan signal on the negative edge after it has stabilized
     always @(negedge clk) begin
