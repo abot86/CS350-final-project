@@ -44,7 +44,7 @@ module regfile (
 	ServoController PWM_ctrl(.clk25mhz(clock), .reset(reset), .r2case(qReg2[2:0]), .servoSignal(PWMout));
     
 	// testing // ------------------
-   assign testing = qReg3[20:5]; // displays highest 16 bits (highest = 2^20)
+   assign testing = qReg12[18:3]; // displays highest 16 bits (highest = 2^20)
 
 	// normal
 	register REGISTER3(qReg3, data_writeReg, clock, write_slct[3], ctrl_reset);

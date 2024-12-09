@@ -53,9 +53,8 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 		rData, regA, regB,
 		memAddr, memDataIn, memDataOut;
 
-
 	// ADD YOUR MEMORY FILE HERE - COMMENTED OUT
-	localparam INSTR_FILE = "C:/Users/isv4/Documents/GitHub/CS350-final-project/testing/mips/main";
+	localparam INSTR_FILE = "C:/Users/isv4/Documents/GitHub/CS350-final-project/testing/mips/main_subset";
 		
 	// Main Processing Unit
 	processor CPU(.clock(clk25mhz), .reset(reset), 
