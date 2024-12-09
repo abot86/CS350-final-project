@@ -41,10 +41,10 @@ module regfile (
 //	//r2: PWM duty-cycle output
 	register REGISTER2(qReg2, data_writeReg, clock, write_slct[2], ctrl_reset);
 //    assign qReg2 = 5'd0;
-	ServoController PWM_ctrl(.clk25mhz(clock), .reset(reset), .r2case(qReg2[2:0]), .servoSignal(PWMout), .testing(testing));
-    // testing // ------------------
-//    assign testing = qReg26[15:0];
-
+	ServoController PWM_ctrl(.clk25mhz(clock), .reset(reset), .r2case(qReg2[2:0]), .servoSignal(PWMout));
+    
+	// testing // ------------------
+   assign testing = qReg3[20:5]; // displays highest 16 bits (highest = 2^20)
 
 	// normal
 	register REGISTER3(qReg3, data_writeReg, clock, write_slct[3], ctrl_reset);

@@ -1,13 +1,13 @@
 `timescale 1ns / 1ps
 
-module ServoController(clk25mhz, reset, r2case, servoSignal, testing);
+module ServoController(clk25mhz, reset, r2case, servoSignal);
     input clk25mhz;
     input reset;
     input [2:0] r2case;
     output servoSignal;
 
-    output [15:0] testing;
-    assign testing[5:0] = treg[5:0];
+    // output [15:0] testing;
+    // assign testing[5:0] = treg[5:0];
     
     reg [5:0] treg; 
 

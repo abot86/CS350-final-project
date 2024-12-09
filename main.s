@@ -28,6 +28,7 @@
 # Define constants
 addi $r18, $r0, 94
 addi $r19, $r0, 2500
+addi $r10, $r10, 0                  # ensure sum == 0 initially 
 
 # Calibrate rest (minimum)
 add $r9, $r0, $r19                 # count = 2500
