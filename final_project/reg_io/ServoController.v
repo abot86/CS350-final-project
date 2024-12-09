@@ -21,8 +21,12 @@ module ServoController(clk25mhz, reset, r2case, servoSignal, testing);
     always @(posedge clk25mhz) r2case_reg <= r2case ;
 
     always @(posedge clk25mhz) begin
-        if (r2case_reg == 0) begin
-            if (counter >= 100000000) begin
+        if (reset != 0) begin
+            duty_cycle_input_reg <= 77;
+            counter <= 0;
+        end
+        else if (r2case_reg == 0) begin
+            if (counter >= 40000000) begin
                 duty_cycle_input_reg <= 77;
                 treg <= 1;
             end
@@ -32,8 +36,8 @@ module ServoController(clk25mhz, reset, r2case, servoSignal, testing);
                 treg <= 2;
             end
         end
-        if (r2case_reg == 1) begin
-            if (counter >= 100000000) begin
+        else if (r2case_reg == 1) begin
+            if (counter >= 40000000) begin
                 duty_cycle_input_reg <= 77;
                 treg <= 3;
             end
@@ -43,12 +47,12 @@ module ServoController(clk25mhz, reset, r2case, servoSignal, testing);
                 treg <= 4;
             end
         end
-        if (r2case_reg == 2) begin
+        else if (r2case_reg == 2) begin
             counter <= 0;
             duty_cycle_input_reg <= 108;
             treg <= 5;
         end
-        if (r2case_reg == 3) begin
+        else if (r2case_reg == 3) begin
             counter <= 0;
             duty_cycle_input_reg <= 35;
             treg <= 6;
