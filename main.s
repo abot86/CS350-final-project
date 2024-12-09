@@ -46,11 +46,12 @@ Min_cal:
     Min_calc:
         blt $r1, $r18, Min_abs    # if ($r1 > OFFSET)
         sub $r11, $r1, $r18       # toAdd = $r1 - OFFSET
+        j End_min_cal
     Min_abs:
         sub $r11, $r18, $r1       # toAdd = OFFSET - $r1
-
-    add $r10, $r10, $r11            # sum = sum + toAdd
-    j Min_cal
+    End_min_cal:
+        add $r10, $r10, $r11            # sum = sum + toAdd
+        j Min_cal
 
 Min_set:
     add $r3, $r10, $r0
@@ -73,11 +74,12 @@ Max_cal:
     Max_calc:
         blt $r1, $r18, Max_abs    # if ($r1 > OFFSET)
         sub $r11, $r1, $r18       # toAdd = $r1 - OFFSET
+        j End_max_cal
     Max_abs:
         sub $r11, $r18, $r1       # toAdd = OFFSET - $r1
-
-    add $r10, $r10, $r11            # sum = sum + toAdd
-    j Max_cal
+    End_max_cal:
+        add $r10, $r10, $r11            # sum = sum + toAdd
+        j Max_cal
 
 Max_set:
     add $r4, $r10, $r0
