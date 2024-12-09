@@ -19,7 +19,7 @@ module ServoDriver(
     ) pwm_gen (
         .clk(clk),                    // Connect system clock
         .reset(reset),                // Connect reset signal
-        .duty_cycle(duty_cycle),      // Pass in duty cycle
+        .duty_cycle(duty_cycle_input),      // Pass in duty cycle
         .signal(servoSignal)         // Connect to output PWM signal
     );
      

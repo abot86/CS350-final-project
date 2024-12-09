@@ -7,6 +7,7 @@ module ServoController(clk25mhz, reset, r2case, servoSignal, testing);
     output servoSignal;
 
     output [15:0] testing;
+    assign testing[9:0] = duty_cycle_input_reg;
 
     reg [29:0] counter;
     reg[9:0] duty_cycle_input_reg;

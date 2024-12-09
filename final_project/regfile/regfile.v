@@ -41,7 +41,7 @@ module regfile (
 //	//r2: PWM duty-cycle output
 //	register REGISTER2(qReg2, data_writeReg, clock, write_slct[2], ctrl_reset);
     assign qReg2 = 5'd1;
-	ServoController PWM_ctrl(.clk25mhz(clock), .reset(reset), .set_high_low(qReg2[2:0]), .servoSignal(PWMout), .testing(testing));
+	ServoController PWM_ctrl(.clk25mhz(clock), .reset(reset), .r2case(qReg2[2:0]), .servoSignal(PWMout), .testing(testing));
     // testing // ------------------
 //    assign testing = qReg21[15:0];
 
