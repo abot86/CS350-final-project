@@ -121,20 +121,20 @@ Main_loop:
 # TO REDO: (r25=prev and r26=curr)
 # NEW:
     final_PWM_steps:
-            bne $r25, $r0, case3HL
-        case0LL:
-            bne $r26, $r0, case2LH
-            addi $r2, $r0, 0
-            j End
-        case1HH:
+            bne $r25, $r0, case4HL
+        case1LL:
+            bne $r26, $r0, case3LH
             addi $r2, $r0, 1
             j End
-        case2LH:
+        case2HH:
             addi $r2, $r0, 2
             j End
-        case3HL:
-            bne $r26, $r0, case1HH
+        case3LH:
             addi $r2, $r0, 3
+            j End
+        case4HL:
+            bne $r26, $r0, case2HH
+            addi $r2, $r0, 4
             j End
 # OLD:
     #     sub $r20, $r26, $r25        # prev - curr (each is either 0 or 1)
