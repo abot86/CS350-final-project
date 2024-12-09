@@ -3,7 +3,7 @@
 module ServoController(clk25mhz, reset, set_high_low, servoSignal);
     input clk25mhz;
     input reset;
-    input set_high_low;
+    input [1:0] set_high_low;
     output servoSignal;
 
     reg[9:0] duty_cycle_input_reg;

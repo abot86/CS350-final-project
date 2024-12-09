@@ -1,6 +1,6 @@
 # test uses buttons to control servo
 
-addi $r22, $r0, 100
+addi $r22, $r0, 100             # is x > 100 ? 
 
 Wait_btnl1:
     bne $r5, $r0, Min_cal       # BTNL 1
@@ -8,6 +8,7 @@ Wait_btnl1:
 
 Min_cal:
     addi $r21, $r1, 0
+    addi $r3, $r21, 0 
     blt $r21, $r22, release_
 
 grab_:

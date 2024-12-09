@@ -39,16 +39,18 @@ module regfile (
 //	register REGISTER1(qReg1, data_writeReg, clock, write_slct[1], ctrl_reset);
  
 //	//r2: PWM duty-cycle output
-//	register REGISTER2(qReg2, data_writeReg, clock, write_slct[2], ctrl_reset);
-//	ServoController PWM_ctrl(.clk25mhz(clock), .reset(reset), .set_high_low(qReg2[0]), .servoSignal(PWMout));
+	register REGISTER2(qReg2, data_writeReg, clock, write_slct[2], ctrl_reset);
+	ServoController PWM_ctrl(.clk25mhz(clock), .reset(reset), .set_high_low(qReg2[1:0]), .servoSignal(PWMout));
 ////    assign PWMout = 1'b0;
+    // testing // ------------------
+    assign testing = qReg3[15:0];
+
 
 	// normal
 	register REGISTER3(qReg3, data_writeReg, clock, write_slct[3], ctrl_reset);
 	register REGISTER4(qReg4, data_writeReg, clock, write_slct[4], ctrl_reset);
 
-    // testing // ------------------
-    assign testing = qReg3[15:0];
+
 
 	// rest and active
 	register rest_register5(qReg5, {{31{1'b0}},rest}, clock, 1'b1, ctrl_reset);
