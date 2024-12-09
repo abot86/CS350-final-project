@@ -5,10 +5,7 @@ module ServoDriver(
     output servoSignal     // PWM signal for the servo
     );
 
-    wire clk;
-    wire locked;
     
-    assign clk = clk25mhz;
     
 
     reg [9:0] duty_cycle; // Duty cycle input (0-1023, scaled to 0-100%)
@@ -17,7 +14,7 @@ module ServoDriver(
         .PERIOD_WIDTH_NS(20_000_000), // 20 ms period for servo
         .SYS_FREQ_MHZ(25)            // 25 MHz system clock
     ) pwm_gen (
-        .clk(clk),                    // Connect system clock
+        .clk(clk25mhz),                    // Connect system clock
         .reset(reset),                // Connect reset signal
         .duty_cycle(duty_cycle_input),      // Pass in duty cycle
         .signal(servoSignal)         // Connect to output PWM signal
