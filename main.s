@@ -56,7 +56,8 @@ Min_set:
 
 
 # Calibrate active (maximum)
-add $r9, $r0, $r19                 # count = 2500
+addi $r10, $r10, 0                  # reset sum to 0 
+add $r9, $r0, $r19                  # count = 2500
 Wait_btnr:
     bne $r6, $r0, Max_cal
     j Wait_btnr
