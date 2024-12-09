@@ -1,44 +1,49 @@
 `timescale 1ns / 1ps
 
-module ServoController(clk25mhz, reset, set_high_low, servoSignal, testing);
+module ServoController(clk25mhz, reset, r2case, servoSignal, testing);
     input clk25mhz;
     input reset;
-    input [4:0] set_high_low;
+    input [2:0] r2case;
     output servoSignal;
+
     output [15:0] testing;
 
+    reg [29:0] inner_counter;
     reg[9:0] duty_cycle_input_reg;
     wire[9:0] duty_cycle_input;
+    
 
     assign duty_cycle_input = duty_cycle_input_reg;
-    reg [4:0] set_high_low_reg;
     
-    always @(posedge clk25mhz) set_high_low_reg <= set_high_low ;
-
-    assign testing[4:0]  = set_high_low_reg;
-    assign testing[14:5] = duty_cycle_input  ;
-
-
-// do we still need below?
-    reg set_high_low_delayed;
-    // prev state stored from main.s file
-
+    reg [4:0] r2case_reg;
+    always @(posedge clk25mhz) r2case_reg <= r2case ;
 
     always @(posedge clk25mhz) begin
-        if (set_high_low_reg == 5'd1) begin
-            duty_cycle_input_reg <= 51;     // duty cycle = 5
-            #1000000000;                     // wait 1s
-            duty_cycle_input_reg <= 77;     // duty cycle = 7.5
-//            #10;
+        if (r2case_reg == 0) begin
+            if (inner_counter >= 1000000000) begin
+                duty_cycle_input_reg <= 77;
+            end
+            else begin
+                duty_cycle_input_reg <= 51;
+                counter <= counter + 1;
+            end
         end
-        if (set_high_low_reg == 5'd2) begin
-            duty_cycle_input_reg <= 92;     // duty cycle = 9
-            #1000000000;                    // wait 1s
-            duty_cycle_input_reg <= 77;     // duty cycle = 7.5
-//            #10;
+        if (r2case_reg == 1) begin
+            if (inner_counter >= 1000000000) begin
+                duty_cycle_input_reg <= 77;
+            end
+            else begin
+                duty_cycle_input_reg <= 92;
+                counter <= counter + 1;
+            end
         end
-        else begin
-            duty_cycle_input_reg <= 77;     // duty cycle = 7.5
+        if (r2case_reg == 2) begin
+            counter <= 0;
+            duty_cycle_input_reg <= 92;
+        end
+        if (r2case_reg == 3) begin
+            counter <= 0;
+            duty_cycle_input_reg <= 51;
         end
     end
 
