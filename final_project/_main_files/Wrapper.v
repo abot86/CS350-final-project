@@ -33,7 +33,6 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 	output [15:0] LED;
 	
 
-
 	wire clk25mhz;
     
 	wire reset;
