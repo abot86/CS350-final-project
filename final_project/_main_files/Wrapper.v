@@ -62,7 +62,7 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 
 
 	// ADD YOUR MEMORY FILE HERE - COMMENTED OUT
-	localparam INSTR_FILE = "C:/Users/isv4/Documents/GitHub/CS350-final-project/testing/mips/basic_servo_ctrl";
+//	localparam INSTR_FILE = "C:/Users/isv4/Documents/GitHub/CS350-final-project/testing/mips/basic_servo_ctrl";
 	
 	
 	// Main Processing Unit
@@ -81,10 +81,10 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 		.data(memDataIn), .q_dmem(memDataOut)); 
 	
 	// Instruction Memory (ROM)
-	ROM #(.MEMFILE({INSTR_FILE, ".mem"}))
-	InstMem(.clk(clk25mhz), 
-		.addr(instAddr[11:0]), 
-		.dataOut(instData));
+//	ROM #(.MEMFILE({INSTR_FILE, ".mem"}))
+//	InstMem(.clk(clk25mhz), 
+//		.addr(instAddr[11:0]), 
+//		.dataOut(instData));
 
     wire [15:0] led_regs;	
 	// Register File
