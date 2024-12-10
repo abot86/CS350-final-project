@@ -8,4 +8,3 @@ In this repository, we have:
 * the compiler used to convert MIPS assembly into machine code [mips compiler]
 * Ayush's Processor used for 350 Checkpoint 4 [processor_ayush]
 * all testing files, including mips scripts, python scripts, adc code, etc [testing]
-* final machine code programs [main.s and main.mem]
