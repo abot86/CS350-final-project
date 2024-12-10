@@ -18,7 +18,6 @@
 # r13 = prev_average
 # r16 = (x-rest)
 # r17 = (active - x)
-# r25 = prev_PWM
 # r26 = curr_PWM
 
 # CONSTANTS
@@ -122,26 +121,27 @@ Main_loop:
 
         Set_curr_HIGH:
             addi $r26, $r0, 1       # set PWM register to high (1*)
+            j final_PWM_steps
 
 
 # TO REDO: (r25=prev and r26=curr)
-# NEW:
-    final_PWM_steps:
-            bne $r25, $r0, case4HL
-        case1LL:
-            bne $r26, $r0, case3LH
-            addi $r2, $r0, 0
-            j End
-        case2HH:
-            addi $r2, $r0, 1
-            j End
-        case3LH:
-            addi $r2, $r0, 2
-            j End
-        case4HL:
-            bne $r26, $r0, case2HH
-            addi $r2, $r0, 3
-            j End
+
+    # final_PWM_steps:
+    #         bne $r25, $r0, case4HL
+    #     case1LL:
+    #         bne $r26, $r0, case3LH
+    #         addi $r2, $r0, 0
+    #         j End
+    #     case2HH:
+    #         addi $r2, $r0, 1
+    #         j End
+    #     case3LH:
+    #         addi $r2, $r0, 2
+    #         j End
+    #     case4HL:
+    #         bne $r26, $r0, case2HH
+    #         addi $r2, $r0, 3
+    #         j End
 # OLD:
     #     sub $r20, $r26, $r25        # prev - curr (each is either 0 or 1)
     #     bne $r20, $r0, send_pwm_pulse # if prev =/= curr, send a pulse
@@ -162,7 +162,6 @@ Main_loop:
 # END OF REDO
 
     End:
-        add $r25, $r0, $r26         # move curr to prev
         addi $r26, $r0, 0            # set PWM to rest
     j Main_loop
 
