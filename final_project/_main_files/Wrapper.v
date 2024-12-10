@@ -32,12 +32,10 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 	output JB, JB_clk;
 	output [15:0] LED;
 	
-
 	wire clk25mhz;
     
 	wire reset;
 	assign reset = BTNC;
-
 
 	// clock - NOT PLL
     reg[3:0] counter;
@@ -46,7 +44,6 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
     end
     assign clk25mhz = counter[1];
 
-
 	wire rwe, mwe;
 	wire[4:0] rd, rs1, rs2;
 	wire[31:0] instAddr, instData, 
@@ -54,8 +51,9 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 		memAddr, memDataIn, memDataOut;
 
 	// ADD YOUR MEMORY FILE HERE - COMMENTED OUT
-	localparam INSTR_FILE = "C:/Users/isv4/Documents/GitHub/CS350-final-project/testing/mips/main_subset";
-		
+	localparam INSTR_FILE = "C:/Users/isv4/Documents/GitHub/CS350-final-project/main";
+	
+	
 	// Main Processing Unit
 	processor CPU(.clock(clk25mhz), .reset(reset), 
 								
@@ -99,6 +97,5 @@ module Wrapper (CLK100MHZ, BTNC, BTNL, BTNR, JA, JB, JB_clk, LED);
 	// JB_clk
 	clock_25M_500k JB_clock_module(clk25mhz, reset, JB_clk);
 //    assign JB_clk = 1'b0; 
-
 
 endmodule

@@ -272,6 +272,9 @@ Main_loop:
         nop
         nop
         addi $r17, $r17, 20000      # WHAT VALUES WERE WE GETTING FOR R3 AND R4 FOR NORMAL SIGNAL?  
+        nop
+        nop
+        nop
 
 
         blt $r17, $r16, Set_curr_HIGH    # if (x-rest > active-x)

@@ -31,7 +31,7 @@ module regfile (
 	//r0: 0
 	register ZERO(qReg0, 32'b0, clock, 1'b0, 1'b0);
 
-	
+
 	//r1: ADC
 	wire [31:0] adc;
 	assign adc = {{24{1'b0}},JA};
@@ -41,11 +41,15 @@ module regfile (
 //	//r2: PWM duty-cycle output
 	register REGISTER2(qReg2, data_writeReg, clock, write_slct[2], ctrl_reset);
 //    assign qReg2 = 5'd0;
-	ServoController PWM_ctrl(.clk25mhz(clock), .reset(reset), .r2case(qReg2[2:0]), .servoSignal(PWMout));
+	ServoController PWM_ctrl(.clk25mhz(clock), .reset(reset), .r26(qReg26[0]), .servoSignal(PWMout), .testing(testing));
     
 	// testing // ------------------
-   assign testing = qReg12[18:3]; // displays highest 16 bits (highest = 2^20)
-
+//	assign testing = qReg3[25:10]; // MAX
+//	assign testing[7:0] = qReg3[16:9]; // MIN
+//    assign testing = qReg11[15:0];
+//    assign testing[0] = qReg26[0]; // displays highest 16 bits (highest = 2^20)
+//    assign testing[1] = qReg25[0];
+    
 	// normal
 	register REGISTER3(qReg3, data_writeReg, clock, write_slct[3], ctrl_reset);
 	register REGISTER4(qReg4, data_writeReg, clock, write_slct[4], ctrl_reset);
