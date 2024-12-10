@@ -3,7 +3,7 @@
 module ServoController(clk25mhz, reset, r26, servoSignal, testing);
     input clk25mhz;
     input reset;
-    input r26;
+    input [4:0] r26;
     output servoSignal;
 
      output [15:0] testing;
@@ -20,10 +20,10 @@ module ServoController(clk25mhz, reset, r26, servoSignal, testing);
     
     assign duty_cycle_input = duty_cycle_input_reg;
     
-    reg [2:0] r26_reg;
+    reg [4:0] r26_reg;
     reg [1:0] state;
     
-    always @(posedge clk25mhz) r26_reg <= r26[2:0];
+    always @(posedge clk25mhz) r26_reg <= r26[4:0];
     assign HIGH = &r26_reg;
     assign LOW = &(!r26_reg);
     
