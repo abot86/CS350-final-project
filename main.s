@@ -27,105 +27,277 @@
 
 # Define constants
 addi $r18, $r0, 94
+nop
+nop
+nop
 addi $r19, $r0, 2500
+nop
+nop
+nop
 addi $r10, $r0, 0                  # ensure sum == 0 initially 
+nop
+nop
+nop
 
 # Calibrate rest (minimum)
 add $r9, $r0, $r19                 # count = 2500
+nop
+nop
+nop
 
 # Calibrate active (maximum)
 Wait_btnr:
     bne $r6, $r0, Max_cal
+    nop
+    nop
+    nop
     j Wait_btnr
+    nop
+    nop
+    nop
 
 Max_cal:
     addi $r9, $r9, -1                # count = count - 1
+    nop
+    nop
+    nop
     addi $r11, $r0, 0               # set toAdd to 0
+    nop
+    nop
+    nop
     blt $r9, $r0, Max_set           # while (count > 0)
+    nop
+    nop
+    nop                                         
     Max_wait_ADC:
         bne $r8, $r0, Max_calc      # while ADC not ready
+        nop
+        nop
+        nop
         j Max_wait_ADC
+        nop
+        nop
+        nop
     Max_calc:
         blt $r1, $r18, Max_abs    # if ($r1 > OFFSET)
+        nop
+        nop
+        nop
         sub $r11, $r1, $r18       # toAdd = $r1 - OFFSET
+        nop
+        nop
+        nop
         j End_max_cal
+        nop
+        nop
+        nop
     Max_abs:
         sub $r11, $r18, $r1       # toAdd = OFFSET - $r1
+        nop
+        nop
+        nop
     End_max_cal:
         add $r10, $r10, $r11            # sum = sum + toAdd
+        nop
+        nop
+        nop
         j Max_cal
+        nop
+        nop
+        nop
 
 Max_set:
     add $r4, $r10, $r0
+    nop
+    nop
+    nop
 
 addi $r10, $r0, 0                  # reset sum to 0 
+nop
+nop
+nop
 add $r9, $r0, $r19                  # count = 2500
-
+nop
+nop
+nop
 
 Wait_btnl:
     bne $r5, $r0, Min_cal
+    nop
+    nop
+    nop
     j Wait_btnl
+    nop
+    nop
+    nop
 
 Min_cal:
     addi $r9, $r9, -1                # count = count - 1
+    nop
+    nop
+    nop
     addi $r11, $r0, 0               # set toAdd to 0
+    nop
+    nop
+    nop
     blt $r9, $r0, Min_set           # while (count > 0)
+    nop
+    nop
+    nop
     Min_wait_ADC:
         bne $r8, $r0, Min_calc      # while ADC not ready
+        nop
+        nop
+        nop                             
         j Min_wait_ADC
+        nop
+        nop
+        nop
     Min_calc:
         blt $r1, $r18, Min_abs    # if ($r1 > OFFSET)
+        nop
+        nop
+        nop
         sub $r11, $r1, $r18       # toAdd = $r1 - OFFSET
+        nop
+        nop
+        nop
         j End_min_cal
+        nop
+        nop
+        nop
     Min_abs:
         sub $r11, $r18, $r1       # toAdd = OFFSET - $r1
+        nop
+        nop
+        nop
     End_min_cal:
         add $r10, $r10, $r11            # sum = sum + toAdd
+        nop
+        nop
+        nop
         j Min_cal
+        nop
+        nop
+        nop
 
 Min_set:
     add $r3, $r10, $r0
+    nop
+    nop
+    nop
 
 sub $r30, $r4, $r3                  # difference btw max and min
+nop
+        nop
+        nop
 
 ## BELOW IS NOT WORKING 
 # Main loop
 Main_loop:
     add $r9, $r0, $r19           # count = 2500
+    nop
+        nop
+        nop
     addi $r12, $r0, 0            # r12 reset
+    nop
+        nop
+        nop
     addi $r10, $r0, 0
+    nop
+        nop
+        nop
 
     Data_collect:
         addi $r9, $r9, -1               # count = count - 1
+        nop
+        nop
+        nop
         addi $r11, $r0, 0               # set toAdd to 0
+        nop
+        nop
+        nop
         blt $r9, $r0, Set_pwm_curr      # while (count > 0)
+        nop
+        nop
+        nop
         Wait_ADC:
             bne $r8, $r0, Calc          # while ADC not ready
+            nop
+        nop
+        nop
             j Wait_ADC
+            nop
+        nop
+        nop
         Calc:
             blt $r1, $r18, Abs          # if ($r1 > OFFSET)
+            nop
+        nop
+        nop
             sub $r11, $r1, $r18         # toAdd = $r1 - OFFSET
+            nop
+        nop
+        nop
             j End_data_collect
+            nop
+        nop
+        nop
         Abs:
             sub $r11, $r18, $r1         # toAdd = OFFSET - $r1
+            nop
+        nop
+        nop
         End_data_collect:
             add $r10, $r10, $r11        # sum = sum + toAdd
+            nop
+        nop
+        nop
             j Data_collect
+            nop
+        nop
+        nop
     
     Set_pwm_curr:
         add $r12, $r10, $r0             # r12 := sum over 3 periods
+        nop
+        nop
+        nop
         sub $r16, $r12, $r3             # $r16 = x - rest
+        nop
+        nop
+        nop
         sub $r17, $r4, $r12             # $r17 = active - x
+        nop
+        nop
+        nop
+        addi $r17, $r17, 20000      # WHAT VALUES WERE WE GETTING FOR R3 AND R4 FOR NORMAL SIGNAL?  
+
 
         blt $r17, $r16, Set_curr_HIGH    # if (x-rest > active-x)
+        nop
+        nop
+        nop
 
         Set_curr_LOW:
             addi $r26, $r0, 0       # set PWM register to low (0*)
+            nop
+        nop
+        nop
             j End
+            nop
+        nop
+        nop
 
         Set_curr_HIGH:
             addi $r26, $r0, 1       # set PWM register to high (1*)
+            nop
+        nop
+        nop
             j End
+            nop
+        nop
+        nop
 
 
 # # TO REDO: (r25=prev and r26=curr)
@@ -169,7 +341,12 @@ Main_loop:
         # add $r25, $r0, $r26         # move curr to prev
         # addi $r26, $r0, 0            # set PWM to rest
     nop
+    nop
+    nop
     j Main_loop
+    nop
+    nop
+    nop
 
 # Create new register to store previous, move current into previous at end of each loop
 
