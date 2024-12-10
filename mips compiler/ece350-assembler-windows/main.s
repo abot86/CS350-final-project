@@ -32,34 +32,8 @@ addi $r10, $r10, 0                  # ensure sum == 0 initially
 
 # Calibrate rest (minimum)
 add $r9, $r0, $r19                 # count = 2500
-Wait_btnl:
-    bne $r5, $r0, Min_cal
-    j Wait_btnl
-
-Min_cal:
-    addi $r9, $r9, -1                # count = count - 1
-    addi $r11, $r0, 0               # set toAdd to 0
-    blt $r9, $r0, Min_set           # while (count > 0)
-    Min_wait_ADC:
-        bne $r8, $r0, Min_calc      # while ADC not ready
-        j Min_wait_ADC
-    Min_calc:
-        blt $r1, $r18, Min_abs    # if ($r1 > OFFSET)
-        sub $r11, $r1, $r18       # toAdd = $r1 - OFFSET
-        j End_min_cal
-    Min_abs:
-        sub $r11, $r18, $r1       # toAdd = OFFSET - $r1
-    End_min_cal:
-        add $r10, $r10, $r11            # sum = sum + toAdd
-        j Min_cal
-
-Min_set:
-    add $r3, $r10, $r0
-
 
 # Calibrate active (maximum)
-addi $r10, $r10, 0                  # reset sum to 0 
-add $r9, $r0, $r19                  # count = 2500
 Wait_btnr:
     bne $r6, $r0, Max_cal
     j Wait_btnr
@@ -83,6 +57,34 @@ Max_cal:
 
 Max_set:
     add $r4, $r10, $r0
+
+addi $r10, $r10, 0                  # reset sum to 0 
+add $r9, $r0, $r19                  # count = 2500
+
+
+Wait_btnl:
+    bne $r5, $r0, Min_cal
+    j Wait_btnl
+
+Min_cal:
+    addi $r9, $r9, -1                # count = count - 1
+    addi $r11, $r0, 0               # set toAdd to 0
+    blt $r9, $r0, Min_set           # while (count > 0)
+    Min_wait_ADC:
+        bne $r8, $r0, Min_calc      # while ADC not ready
+        j Min_wait_ADC
+    Min_calc:
+        blt $r1, $r18, Min_abs    # if ($r1 > OFFSET)
+        sub $r11, $r1, $r18       # toAdd = $r1 - OFFSET
+        j End_min_cal
+    Min_abs:
+        sub $r11, $r18, $r1       # toAdd = OFFSET - $r1
+    End_min_cal:
+        add $r10, $r10, $r11            # sum = sum + toAdd
+        j Min_cal
+
+Min_set:
+    add $r3, $r10, $r0
 
 ## BELOW IS NOT WORKING 
 # Main loop
@@ -128,17 +130,17 @@ Main_loop:
             bne $r25, $r0, case4HL
         case1LL:
             bne $r26, $r0, case3LH
-            addi $r2, $r0, 1
+            addi $r2, $r0, 0
             j End
         case2HH:
-            addi $r2, $r0, 2
+            addi $r2, $r0, 1
             j End
         case3LH:
-            addi $r2, $r0, 3
+            addi $r2, $r0, 2
             j End
         case4HL:
             bne $r26, $r0, case2HH
-            addi $r2, $r0, 4
+            addi $r2, $r0, 3
             j End
 # OLD:
     #     sub $r20, $r26, $r25        # prev - curr (each is either 0 or 1)
@@ -161,7 +163,7 @@ Main_loop:
 
     End:
         add $r25, $r0, $r26         # move curr to prev
-        addi $r2, $r0, 0            # set PWM to rest
+        addi $r26, $r0, 0            # set PWM to rest
     j Main_loop
 
 # Create new register to store previous, move current into previous at end of each loop
