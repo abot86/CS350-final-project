@@ -29,7 +29,7 @@ module ServoController(clk25mhz, reset, r26, servoSignal, testing);
     
     always @(posedge clk25mhz) begin
         if (reset != 0) begin
-            duty_cycle_input_reg <= 45;
+            duty_cycle_input_reg <= 43;
             counter <= 0;
             state = 2'b00;
         end
@@ -37,7 +37,7 @@ module ServoController(clk25mhz, reset, r26, servoSignal, testing);
         // OPEN
         else if (state == 2'b00) begin
             counter <= 0;
-            duty_cycle_input_reg <= 45;
+            duty_cycle_input_reg <= 43;
             if (HIGH == 1'b1) begin
                 state <= 2'b01;
             end
@@ -46,7 +46,7 @@ module ServoController(clk25mhz, reset, r26, servoSignal, testing);
         // CLOSED
         else if (state == 2'b11) begin
             counter <= 0;
-            duty_cycle_input_reg <= 45;
+            duty_cycle_input_reg <= 43;
             if (LOW == 1'b1) begin
                 state <= 2'b10;
             end
@@ -55,7 +55,7 @@ module ServoController(clk25mhz, reset, r26, servoSignal, testing);
         // CLOSING
         else if (state == 2'b01) begin
             counter <= counter+1;
-            duty_cycle_input_reg <= 20; 
+            duty_cycle_input_reg <= 17; 
             if (counter >= 80000000) begin     
                 state <= 2'b11;
             end
@@ -64,7 +64,7 @@ module ServoController(clk25mhz, reset, r26, servoSignal, testing);
         // OPENING
         else if (state == 2'b10) begin
             counter <= counter+1;
-            duty_cycle_input_reg <= 68;
+            duty_cycle_input_reg <= 69;
             if (counter >= 80000000) begin
                 state <= 2'b00;
             end
