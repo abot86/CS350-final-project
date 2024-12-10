@@ -280,7 +280,11 @@ Main_loop:
         nop
 
         Set_curr_LOW:
-            addi $r26, $r0, 0       # set PWM register to low (0*)
+            sll $r26, $26, 1
+            nop
+            nop
+            nop
+            addi $r26, $r26, 0       # set PWM register to low (0*)
             nop
         nop
         nop
@@ -290,7 +294,11 @@ Main_loop:
         nop
 
         Set_curr_HIGH:
-            addi $r26, $r0, 1       # set PWM register to high (1*)
+            sll $r26, $26, 1
+            nop
+            nop
+            nop
+            addi $r26, $r26, 1       # set PWM register to high (1*)
             nop
         nop
         nop
