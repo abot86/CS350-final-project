@@ -28,7 +28,7 @@
 # Define constants
 addi $r18, $r0, 94
 addi $r19, $r0, 2500
-addi $r10, $r10, 0                  # ensure sum == 0 initially 
+addi $r10, $r0, 0                  # ensure sum == 0 initially 
 
 # Calibrate rest (minimum)
 add $r9, $r0, $r19                 # count = 2500
@@ -58,7 +58,7 @@ Max_cal:
 Max_set:
     add $r4, $r10, $r0
 
-addi $r10, $r10, 0                  # reset sum to 0 
+addi $r10, $r0, 0                  # reset sum to 0 
 add $r9, $r0, $r19                  # count = 2500
 
 
@@ -86,11 +86,14 @@ Min_cal:
 Min_set:
     add $r3, $r10, $r0
 
+sub $r30, $r4, $r3                  # difference btw max and min
+
 ## BELOW IS NOT WORKING 
 # Main loop
 Main_loop:
     add $r9, $r0, $r19           # count = 2500
     addi $r12, $r0, 0            # r12 reset
+    addi $r10, $r0, 0
 
     Data_collect:
         addi $r9, $r9, -1               # count = count - 1
