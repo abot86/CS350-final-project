@@ -164,7 +164,8 @@ Main_loop:
 
     End:
         # add $r25, $r0, $r26         # move curr to prev
-        addi $r26, $r0, 0            # set PWM to rest
+        # addi $r26, $r0, 0            # set PWM to rest
+    nop
     j Main_loop
 
 # Create new register to store previous, move current into previous at end of each loop
